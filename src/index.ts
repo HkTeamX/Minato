@@ -1,10 +1,11 @@
-import { ATRI, Logger, performance_counter, type BotConfig } from '@huan_kong/atri'
+import { ATRI, performanceCounter, type BotConfig } from '@atri-bot/core'
+import { Logger, LogLevel } from '@huan_kong/logger'
 import { config } from 'dotenv'
 import type { NCWebsocketOptionsHost } from 'node-napcat-ts'
 import path from 'node:path'
 import process from 'node:process'
 
-const get_elapsed_time = performance_counter()
+const getElapsedTime = performanceCounter()
 
 config({
   path: path.join(import.meta.dirname, '../.env'),
@@ -13,12 +14,16 @@ config({
 
 const debug = process.argv.includes('--debug')
 
-const logger = new Logger('KKBot', debug)
-logger.INFO('开始加载 KKBOT')
+const logger = new Logger({
+  title: 'Minato',
+  level: debug ? LogLevel.DEBUG : undefined,
+})
+
+logger.INFO('开始加载 Minato')
 
 const bot: BotConfig = {
   prefix: JSON.parse(process.env.PREFIX ?? '["/"]'),
-  admin_id: JSON.parse(process.env.ADMIN_ID ?? '[10001]'),
+  adminId: JSON.parse(process.env.ADMIN_ID ?? '[10001]'),
   connection: {
     protocol: (process.env.NC_PROTOCOL ?? 'ws') as NCWebsocketOptionsHost['protocol'],
     host: process.env.NC_HOST ?? '127.0.0.1',
@@ -32,14 +37,11 @@ const bot: BotConfig = {
   },
 }
 
-const atri = await ATRI.init({
+await ATRI.init({
   bot,
   debug,
-  base_dir: import.meta.dirname,
+  baseDir: import.meta.dirname,
+  plugins: ['@atri-bot/plugin-plugin-store'],
 })
 
-await atri.load_plugins(['./plugins/call'])
-
-atri.check_waiting_plugins()
-
-logger.INFO(`KKBOT 加载完成! 总耗时: ${get_elapsed_time()}ms`)
+logger.INFO(`Minato 加载完成! 总耗时: ${getElapsedTime()}ms`)
