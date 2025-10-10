@@ -1,3 +1,6 @@
+packages:
+  - Minato-Official-Plugins/packages/*
 onlyBuiltDependencies:
   - es5-ext
   - esbuild
+  - sqlite3
