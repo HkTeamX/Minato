@@ -43,7 +43,10 @@ RUN apt-get update && apt-get install -y \
     # 中文字体
     fonts-wqy-microhei \
     fonts-wqy-zenhei \
+    language-pack-zh-hans \
     && rm -rf /var/lib/apt/lists/*
+
+RUN dpkg-reconfigure fontconfig
 
 # 设置环境变量
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
