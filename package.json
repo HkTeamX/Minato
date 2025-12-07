@@ -20,7 +20,8 @@
     "@minato-bot/atri-bot-plugin-gugu": "^1.0.0",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
-    "node-napcat-ts": "^0.4.20"
+    "node-napcat-ts": "^0.4.20",
+    "puppeteer": "^24.32.0"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
