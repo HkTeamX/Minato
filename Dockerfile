@@ -11,8 +11,8 @@ RUN apk add -q --update --no-cache \
     ttf-freefont
 
 # 跳过 chromium 下载, 指定 chromium 浏览器路径的环境变量
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD 1
-ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # 设置工作目录
 WORKDIR /app
