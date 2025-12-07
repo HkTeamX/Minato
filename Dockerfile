@@ -23,7 +23,7 @@ RUN apt-get remove -y git && apt-get autoremove -y
 RUN mkdir -p /app/data /app/config
 
 # 定义卷挂载点
-VOLUME ["/app/data", "/app/config"]
+VOLUME ["/app/data", "/app/config", "/app/db.sqlite"]
 
 # 启动应用
 CMD ["bun", "start"]
