@@ -1,6 +1,9 @@
 # 使用官方 bun 镜像作为基础镜像
 FROM oven/bun:latest
 
+# 安装 git
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
 # 设置工作目录
 WORKDIR /app
 
@@ -12,6 +15,9 @@ RUN git clone https://github.com/HkTeamX/Minato-Official-Plugins.git ./Minato-Of
 
 # 执行 bun install 安装依赖
 RUN bun install
+
+# 删除 git（已不再需要）
+RUN apt-get remove -y git && apt-get autoremove -y
 
 # 创建数据和配置目录
 RUN mkdir -p /app/data /app/config
