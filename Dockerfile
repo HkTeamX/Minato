@@ -3,10 +3,7 @@ FROM oven/bun:latest
 # 安装 Puppeteer 所需的系统依赖
 RUN apt-get update && apt-get install -y \
     chromium \
-    fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf \
-    ca-certificates \
-    wget \
-    --no-install-recommends \
+    chromium-sandbox \
     && rm -rf /var/lib/apt/lists/*
 
 # 设置环境变量
