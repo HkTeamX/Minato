@@ -9,8 +9,8 @@
         "@atri-bot/plugin-help": "^1.1.11",
         "@atri-bot/plugin-plugin-store": "^1.1.5",
         "@huan_kong/logger": "^1.0.6",
-        "@minato-bot/atri-bot-plugin-corpus": "^1.0.1",
-        "@minato-bot/atri-bot-plugin-gugu": "^1.0.0",
+        "@minato-bot/atri-bot-plugin-corpus": "^1.0.2",
+        "@minato-bot/atri-bot-plugin-gugu": "^1.0.1",
         "commander": "^14.0.2",
         "dotenv": "^17.2.3",
         "node-napcat-ts": "^0.4.20",
@@ -74,9 +74,9 @@
 
     "@humanwhocodes/retry": ["@humanwhocodes/retry@0.4.3", "", {}, "sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ=="],
 
-    "@minato-bot/atri-bot-plugin-corpus": ["@minato-bot/atri-bot-plugin-corpus@1.0.1", "", { "dependencies": { "@atri-bot/core": "^1.1.30", "@atri-bot/lib-db": "^1.1.2", "@atri-bot/lib-request": "^1.1.12", "@huan_kong/logger": "^1.0.6", "dayjs": "^1.11.19", "node-napcat-ts": "^0.4.20", "sequelize": "^6.37.7" } }, "sha512-g3SFD8VCrgj0yPyXHT9WxvPK5iPfw0orZ5cWNWNAXVMDxw0+XQIBlQcBCO1Ud4bpEzNbYwUGbMTVrxVNZh9ocw=="],
+    "@minato-bot/atri-bot-plugin-corpus": ["@minato-bot/atri-bot-plugin-corpus@1.0.2", "", { "dependencies": { "@atri-bot/core": "^1.1.30", "@atri-bot/lib-db": "^1.1.2", "@atri-bot/lib-request": "^1.1.12", "@huan_kong/logger": "^1.0.6", "@minato-bot/atri-bot-plugin-gugu": "^1.0.1", "dayjs": "^1.11.19", "node-napcat-ts": "^0.4.20", "sequelize": "^6.37.7" } }, "sha512-YNUadJ1D8r0D+eohOUPE5b6KfTCn4rymJTRGr4jfV2m7vaVf99AhzBkYxYeF2i0FyP13ySj3WAYnjdRM3ZceeQ=="],
 
-    "@minato-bot/atri-bot-plugin-gugu": ["@minato-bot/atri-bot-plugin-gugu@1.0.0", "", { "dependencies": { "@atri-bot/core": "^1.1.30", "@atri-bot/lib-db": "^1.1.2", "@huan_kong/logger": "^1.0.6", "cron": "^4.3.5", "dayjs": "^1.11.19", "node-napcat-ts": "^0.4.20", "sequelize": "^6.37.7" } }, "sha512-ijrzAnDzTEvu6iTY/E/8jDqxI2CbdmDJrx0x1ux207hTVLC/kBRCaIVfoW0aPtLf1y0Gvjn/c3aBIhwptkOtZQ=="],
+    "@minato-bot/atri-bot-plugin-gugu": ["@minato-bot/atri-bot-plugin-gugu@1.0.1", "", { "dependencies": { "@atri-bot/core": "^1.1.30", "@atri-bot/lib-db": "^1.1.2", "@huan_kong/logger": "^1.0.6", "cron": "^4.3.5", "dayjs": "^1.11.19", "node-napcat-ts": "^0.4.20", "sequelize": "^6.37.7" } }, "sha512-2qeCbZqNm5p/X16GBe++XBcf0F3c+OO0E/ASTihrO3ccNruInwZSLI5GaljgXOA0sIrnPHe63DDwe4bqY2Bsvw=="],
 
     "@npmcli/fs": ["@npmcli/fs@1.1.1", "", { "dependencies": { "@gar/promisify": "^1.0.1", "semver": "^7.3.5" } }, "sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ=="],
 

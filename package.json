@@ -7,7 +7,7 @@
   "description": "qqbot powered by atri framework",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch ./src/index.ts",
+    "dev": "bun --watch ./src/index.ts --debug",
     "start": "bun ./src/index.ts",
     "type-check": "tsgo --noEmit -p tsconfig.json --composite false"
   },
@@ -16,8 +16,8 @@
     "@atri-bot/plugin-help": "^1.1.11",
     "@atri-bot/plugin-plugin-store": "^1.1.5",
     "@huan_kong/logger": "^1.0.6",
-    "@minato-bot/atri-bot-plugin-corpus": "^1.0.1",
-    "@minato-bot/atri-bot-plugin-gugu": "^1.0.0",
+    "@minato-bot/atri-bot-plugin-corpus": "^1.0.2",
+    "@minato-bot/atri-bot-plugin-gugu": "^1.0.1",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "node-napcat-ts": "^0.4.20",

@@ -14,6 +14,12 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"]
+      // "@minato-bot/atri-bot-plugin-gugu": [
+      //   "./Minato-Official-Plugins/packages/minato-plugin-gugu/src/index.ts"
+      // ],
+      // "@minato-bot/atri-bot-plugin-corpus": [
+      //   "./Minato-Official-Plugins/packages/minato-plugin-corpus/src/index.ts"
+      // ]
     },
     "noEmit": true,
     "allowImportingTsExtensions": true
