@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@atri-bot/core": "^1.1.30",
-    "@atri-bot/plugin-help": "^1.1.10",
+    "@atri-bot/plugin-help": "^1.1.11",
     "@atri-bot/plugin-plugin-store": "^1.1.5",
     "@huan_kong/logger": "^1.0.6",
     "@minato-bot/atri-bot-plugin-corpus": "^1.0.1",

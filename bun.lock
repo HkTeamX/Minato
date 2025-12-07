@@ -6,7 +6,7 @@
       "name": "minato",
       "dependencies": {
         "@atri-bot/core": "^1.1.30",
-        "@atri-bot/plugin-help": "^1.1.10",
+        "@atri-bot/plugin-help": "^1.1.11",
         "@atri-bot/plugin-plugin-store": "^1.1.5",
         "@huan_kong/logger": "^1.0.6",
         "@minato-bot/atri-bot-plugin-corpus": "^1.0.1",
@@ -36,7 +36,7 @@
 
     "@atri-bot/lib-request": ["@atri-bot/lib-request@1.1.12", "", { "dependencies": { "@huan_kong/logger": "^1.0.6", "axios": "^1.12.2", "axios-retry": "^4.5.0" } }, "sha512-xSZAXKzVhMLdE4pWzE3V2o10CRzesG/dPtQRFUV9unNcRfufAoJht22PEI9h3ytvVybRs7jcqZSnv+F+Q4xh/Q=="],
 
-    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@1.1.10", "", { "dependencies": { "@atri-bot/core": "^1.1.21", "@atri-bot/lib-puppeteer": "^1.1.11", "commander": "^14.0.1", "node-napcat-ts": "^0.4.20" } }, "sha512-znV6I4TgqtybCYYxeDkX46gHT6ogvIrw98xaZfRIVx0S7KjvXGgA49z1Yq2ktiogcPLbekn4VFwwh7672mDS2A=="],
+    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@1.1.11", "", { "dependencies": { "@atri-bot/core": "^1.1.21", "@atri-bot/lib-puppeteer": "^1.1.11", "commander": "^14.0.1", "node-napcat-ts": "^0.4.20" } }, "sha512-fLgdiMOiylK4PsaBZ/J6D95rTOBB7pc4H1OSdGdyy1AMhEK85egx50su5UuuON64R2BmoFQ9ngFjZLDVBR3mNg=="],
 
     "@atri-bot/plugin-plugin-store": ["@atri-bot/plugin-plugin-store@1.1.5", "", { "dependencies": { "@atri-bot/core": "^1.1.15", "commander": "^14.0.1", "execa": "8.0.1", "node-napcat-ts": "^0.4.20" } }, "sha512-wUaGyw8+hn0drHrH/q3OpCF1+of7LM+evv6Lt13bX+s6w2DQOpWmAdPPmzQqQ+yKYiHNu9/t3XmEAG9sHD/ZWA=="],
 
