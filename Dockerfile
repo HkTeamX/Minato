@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # 跳过 chromium 下载, 指定 chromium 浏览器路径的环境变量
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # 设置工作目录
 WORKDIR /app
