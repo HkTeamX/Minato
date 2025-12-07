@@ -1,5 +1,15 @@
 FROM oven/bun:alpine
 
+# 安装 Puppeteer 所需的系统依赖
+RUN apk add -q --update --no-cache \
+    chromium \
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
+
 # 设置工作目录
 WORKDIR /app
 
