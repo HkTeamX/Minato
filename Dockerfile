@@ -14,7 +14,7 @@ COPY . .
 RUN git clone https://github.com/HkTeamX/Minato-Official-Plugins.git ./Minato-Official-Plugins
 
 # 执行 bun install 安装依赖
-RUN bun install
+RUN bun install --frozen-lockfile
 
 # 删除 git（已不再需要）
 RUN apt-get remove -y git && apt-get autoremove -y
@@ -26,4 +26,4 @@ RUN mkdir -p /app/data /app/config
 VOLUME ["/app/data", "/app/config", "/app/db.sqlite"]
 
 # 启动应用
-CMD ["bun", "start"]
+CMD ["bun", "./src/index.ts"]
