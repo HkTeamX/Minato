@@ -3,6 +3,7 @@ FROM oven/bun:latest
 # 安装 Puppeteer 所需的系统依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
+    chromium-sandbox \
     && rm -rf /var/lib/apt/lists/*
 
 # 跳过 chromium 下载, 指定 chromium 浏览器路径的环境变量
