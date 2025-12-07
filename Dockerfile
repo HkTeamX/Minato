@@ -26,6 +26,13 @@ RUN bun install --frozen-lockfile --production
 # 创建数据和配置目录
 RUN mkdir -p /app/src/data /app/src/config
 
+# 创建非 root 用户 bun
+RUN addgroup -S bun && adduser -S bun -G bun
+RUN chown -R bun:bun /app
+
+# 切换到 bun 用户
+USER bun
+
 # 定义卷挂载点
 VOLUME ["/app/src/data", "/app/src/config"]
 
