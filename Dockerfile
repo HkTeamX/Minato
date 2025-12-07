@@ -1,50 +1,18 @@
 FROM oven/bun:latest
 
 # 安装 Puppeteer 所需的系统依赖
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     chromium \
-    chromium-sandbox \
+    fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf \
     ca-certificates \
-    fonts-liberation \
-    libasound2 \
-    libatk-bridge2.0-0 \
-    libatk1.0-0 \
-    libc6 \
-    libcairo2 \
-    libcups2 \
-    libdbus-1-3 \
-    libexpat1 \
-    libfontconfig1 \
-    libgbm1 \
-    libgcc1 \
-    libglib2.0-0 \
-    libgtk-3-0 \
-    libnspr4 \
-    libnss3 \
-    libpango-1.0-0 \
-    libpangocairo-1.0-0 \
-    libstdc++6 \
-    libx11-6 \
-    libx11-xcb1 \
-    libxcb1 \
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxi6 \
-    libxrandr2 \
-    libxrender1 \
-    libxss1 \
-    libxtst6 \
-    lsb-release \
     wget \
-    xdg-utils \
+    --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# 跳过 chromium 下载, 指定 chromium 浏览器路径的环境变量
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+# 设置环境变量
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
+    NODE_ENV=production
 
 # 设置工作目录
 WORKDIR /app
@@ -53,13 +21,14 @@ WORKDIR /app
 COPY . .
 
 # 递归赋予 /app 及其所有子文件/文件夹给 bun 用户
+RUN chmod -R 777 /app
 RUN chown -R bun:bun /app
 
 # 切换到 bun 用户
 USER bun
 
-# 执行 bun install 安装依赖（跳过 devDependencies）
-RUN bun install --frozen-lockfile --production
+# 执行 bun install 安装依赖
+RUN bun install --frozen-lockfile
 
 # 创建数据和配置目录
 RUN mkdir -p /app/src/data /app/src/config
