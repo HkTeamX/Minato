@@ -1,7 +1,11 @@
 {
-  "plugins": {},
+  "plugins": {
+    "@minato-bot/atri-bot-plugin-gugu": true,
+    "@minato-bot/atri-bot-plugin-corpus": true
+  },
   "autoLoadPlugins": {
     "@minato-bot/atri-bot-plugin-gugu": true,
-    "@atri-bot/plugin-help": true
+    "@atri-bot/plugin-help": true,
+    "@minato-bot/atri-bot-plugin-corpus": true
   }
 }

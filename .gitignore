@@ -6,3 +6,4 @@ db.sqlite
 Minato-Official-Plugins
 logs
 !./src/config/@atri-bot__plugin-plugin-store.json
+data

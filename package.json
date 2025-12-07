@@ -12,11 +12,12 @@
     "type-check": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^1.1.26",
+    "@atri-bot/core": "^1.1.30",
     "@atri-bot/plugin-help": "^1.1.9",
     "@atri-bot/plugin-plugin-store": "^1.1.5",
     "@eslint/js": "^9.39.1",
     "@huan_kong/logger": "^1.0.6",
+    "@minato-bot/atri-bot-plugin-corpus": "workspace:^",
     "@minato-bot/atri-bot-plugin-gugu": "workspace:^",
     "@types/node": "^24.10.1",
     "commander": "^14.0.2",
