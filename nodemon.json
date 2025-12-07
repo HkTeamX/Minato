@@ -1,6 +1,0 @@
-{
-  "watch": ["./src", "./Minato-Official-Plugins/packages"],
-  "ext": ".ts",
-  "ignore": [],
-  "exec": "pnpm run start --debug"
-}

@@ -7,29 +7,29 @@
   "description": "qqbot powered by atri framework",
   "type": "module",
   "scripts": {
-    "dev": "nodemon",
-    "start": "tsx ./src/index.ts",
-    "type-check": "tsc --noEmit -p tsconfig.json --composite false"
+    "dev": "bun --watch ./src/index.ts",
+    "start": "bun ./src/index.ts",
+    "type-check": "tsgo --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
     "@atri-bot/core": "^1.1.30",
     "@atri-bot/plugin-help": "^1.1.9",
     "@atri-bot/plugin-plugin-store": "^1.1.5",
-    "@eslint/js": "^9.39.1",
     "@huan_kong/logger": "^1.0.6",
     "@minato-bot/atri-bot-plugin-corpus": "workspace:^",
     "@minato-bot/atri-bot-plugin-gugu": "workspace:^",
-    "@types/node": "^24.10.1",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
+    "node-napcat-ts": "^0.4.20"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@typescript/native-preview": "^7.0.0-dev.20251207.1",
+    "typescript-eslint": "^8.48.1",
+    "prettier": "^3.7.4",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
-    "node-napcat-ts": "^0.4.20",
-    "nodemon": "^3.1.11",
-    "prettier": "^3.6.2",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.4"
+    "@eslint/js": "^9.39.1"
   },
   "workspaces": [
     "Minato-Official-Plugins/packages/*"
