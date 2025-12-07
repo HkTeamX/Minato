@@ -1,5 +1,6 @@
-import { ATRI, performanceCounter, type BotConfig } from '@atri-bot/core'
+import { ATRI, CommanderUtils, performanceCounter, type BotConfig } from '@atri-bot/core'
 import { Logger, LogLevel } from '@huan_kong/logger'
+import { Command } from 'commander'
 import { config } from 'dotenv'
 import type { NCWebsocketOptionsHost } from 'node-napcat-ts'
 import path from 'node:path'
@@ -12,16 +13,27 @@ config({
   quiet: true,
 })
 
-const debug = process.argv.includes('--debug')
+const opts = new Command()
+  .option('-d, --debug', '启用调试模式')
+  .option(
+    '-l, --logLevel <level>',
+    '设置日志级别',
+    CommanderUtils.enum(['DEBUG', 'INFO', 'WARN', 'ERROR']),
+    undefined,
+  )
+  .parse(process.argv)
+
+const debug = opts.getOptionValue('debug') as boolean
+const logLevel = LogLevel[opts.getOptionValue('logLevel')] as unknown as LogLevel | undefined
 
 const logger = new Logger({
   title: 'Minato',
-  level: debug ? LogLevel.DEBUG : undefined,
+  level: logLevel ?? (debug ? LogLevel.DEBUG : undefined),
 })
 
 logger.INFO('开始加载 Minato')
 
-const bot: BotConfig = {
+const botConfig: BotConfig = {
   prefix: JSON.parse(process.env.PREFIX ?? '["/"]'),
   adminId: JSON.parse(process.env.ADMIN_ID ?? '[10001]'),
   connection: {
@@ -38,10 +50,11 @@ const bot: BotConfig = {
 }
 
 await ATRI.init({
-  bot,
   debug,
+  bot: botConfig,
   baseDir: import.meta.dirname,
   plugins: ['@atri-bot/plugin-plugin-store'],
+  logLevel: logLevel,
 })
 
 logger.INFO(`Minato 加载完成! 总耗时: ${getElapsedTime()}ms`)
