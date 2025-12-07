@@ -7,6 +7,9 @@ WORKDIR /app
 # 将本地代码复制到容器中
 COPY . .
 
+# 克隆官方插件库
+RUN git clone https://github.com/HkTeamX/Minato-Official-Plugins.git ./Minato-Official-Plugins
+
 # 执行 bun install 安装依赖
 RUN bun install
 
