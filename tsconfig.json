@@ -20,6 +20,9 @@
       // "@minato-bot/atri-bot-plugin-corpus": [
       //   "./Minato-Official-Plugins/packages/minato-plugin-corpus/src/index.ts"
       // ]
+      // "@minato-bot/atri-bot-plugin-wxjsxy": [
+      //   "./Minato-Official-Plugins/packages/minato-plugin-wxjsxy/src/index.ts"
+      // ]
     },
     "noEmit": true,
     "allowImportingTsExtensions": true

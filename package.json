@@ -17,7 +17,8 @@
     "@atri-bot/plugin-plugin-store": "^1.1.5",
     "@huan_kong/logger": "^1.0.6",
     "@minato-bot/atri-bot-plugin-corpus": "^1.0.2",
-    "@minato-bot/atri-bot-plugin-gugu": "^1.0.1",
+    "@minato-bot/atri-bot-plugin-gugu": "^1.0.2",
+    "@minato-bot/atri-bot-plugin-wxjsxy": "^1.0.1",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "node-napcat-ts": "^0.4.20",
@@ -25,7 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "@typescript/native-preview": "^7.0.0-dev.20251207.1",
+    "@typescript/native-preview": "^7.0.0-dev.20251208.1",
     "typescript-eslint": "^8.48.1",
     "prettier": "^3.7.4",
     "eslint": "^9.39.1",
