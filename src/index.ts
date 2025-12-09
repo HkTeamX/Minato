@@ -2,7 +2,7 @@ import { ATRI, CommanderUtils, performanceCounter, type BotConfig } from '@atri-
 import { Logger, LogLevel } from '@huan_kong/logger'
 import { Command } from 'commander'
 import { config } from 'dotenv'
-import type { NCWebsocketOptionsHost } from 'node-napcat-ts'
+import { Structs, type NCWebsocketOptionsHost } from 'node-napcat-ts'
 import path from 'node:path'
 import process from 'node:process'
 
@@ -49,7 +49,7 @@ const botConfig: BotConfig = {
   },
 }
 
-await ATRI.init({
+const atri = await ATRI.init({
   debug,
   bot: botConfig,
   baseDir: import.meta.dirname,
@@ -58,3 +58,9 @@ await ATRI.init({
 })
 
 logger.INFO(`Minato 加载完成! 总耗时: ${getElapsedTime()}ms`)
+
+botConfig.adminId.forEach((adminId) =>
+  atri.bot.sendMsg({ message_type: 'private', user_id: adminId }, [
+    Structs.text(`Minato 启动完成! 总耗时: ${getElapsedTime()}ms`),
+  ]),
+)
