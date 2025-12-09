@@ -18,7 +18,7 @@
     "@huan_kong/logger": "^1.0.6",
     "@minato-bot/atri-bot-plugin-corpus": "^1.0.2",
     "@minato-bot/atri-bot-plugin-gugu": "^1.0.2",
-    "@minato-bot/atri-bot-plugin-wxjsxy": "^1.0.2",
+    "@minato-bot/atri-bot-plugin-wxjsxy": "^1.0.3",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "node-napcat-ts": "^0.4.20",
