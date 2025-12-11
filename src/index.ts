@@ -59,8 +59,10 @@ const atri = await ATRI.init({
 
 logger.INFO(`Minato 加载完成! 总耗时: ${getElapsedTime()}ms`)
 
-botConfig.adminId.forEach((adminId) =>
-  atri.bot.sendMsg({ message_type: 'private', user_id: adminId }, [
-    Structs.text(`Minato 启动完成! 总耗时: ${getElapsedTime()}ms`),
-  ]),
-)
+if (!debug) {
+  botConfig.adminId.forEach((adminId) =>
+    atri.bot.sendMsg({ message_type: 'private', user_id: adminId }, [
+      Structs.text(`Minato 启动完成! 总耗时: ${getElapsedTime()}ms`),
+    ]),
+  )
+}

@@ -12,7 +12,7 @@
     "type-check": "tsgo --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^1.1.30",
+    "@atri-bot/core": "^1.1.31",
     "@atri-bot/plugin-help": "^1.1.11",
     "@atri-bot/plugin-plugin-store": "^1.1.5",
     "@huan_kong/logger": "^1.0.6",
@@ -25,8 +25,8 @@
     "puppeteer": "^24.32.1"
   },
   "devDependencies": {
-    "@types/node": "^24.10.2",
-    "@typescript/native-preview": "^7.0.0-dev.20251208.1",
+    "@types/node": "^25.0.0",
+    "@typescript/native-preview": "^7.0.0-dev.20251210.1",
     "typescript-eslint": "^8.49.0",
     "prettier": "^3.7.4",
     "eslint": "^9.39.1",
