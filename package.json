@@ -18,15 +18,15 @@
     "@huan_kong/logger": "^1.0.6",
     "@minato-bot/atri-bot-plugin-corpus": "^1.0.2",
     "@minato-bot/atri-bot-plugin-gugu": "^1.0.2",
-    "@minato-bot/atri-bot-plugin-wxjsxy": "^1.0.6",
+    "@minato-bot/atri-bot-plugin-wxjsxy": "^1.0.7",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "node-napcat-ts": "^0.4.20",
-    "puppeteer": "^24.32.1"
+    "puppeteer": "^24.33.0"
   },
   "devDependencies": {
     "@types/node": "^25.0.0",
-    "@typescript/native-preview": "^7.0.0-dev.20251210.1",
+    "@typescript/native-preview": "^7.0.0-dev.20251211.1",
     "typescript-eslint": "^8.49.0",
     "prettier": "^3.7.4",
     "eslint": "^9.39.1",
