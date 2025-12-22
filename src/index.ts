@@ -21,7 +21,7 @@ const opts = new Command()
     CommanderUtils.enum(['DEBUG', 'INFO', 'WARN', 'ERROR']),
     undefined,
   )
-  .option('-tz, --timezone <timezone>', '设置时区', 'Asia/Shanghai')
+  .option('-t, --timezone <timezone>', '设置时区', 'Asia/Shanghai')
   .parse(process.argv)
 
 const debug = opts.getOptionValue('debug') as boolean
