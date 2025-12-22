@@ -21,10 +21,13 @@ const opts = new Command()
     CommanderUtils.enum(['DEBUG', 'INFO', 'WARN', 'ERROR']),
     undefined,
   )
+  .option('-tz, --timezone <timezone>', '设置时区', 'Asia/Shanghai')
   .parse(process.argv)
 
 const debug = opts.getOptionValue('debug') as boolean
 const logLevel = LogLevel[opts.getOptionValue('logLevel')] as unknown as LogLevel | undefined
+
+process.env.TZ = opts.getOptionValue('timezone') as string
 
 const logger = new Logger({
   title: 'Minato',
