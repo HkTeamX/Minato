@@ -83,6 +83,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# 重新生成字体缓存，确保中文字体可用
 RUN dpkg-reconfigure fontconfig
 
 # 设置环境变量
@@ -98,13 +99,18 @@ COPY package.json bun.lock ./
 
 # 使用 bun 用户安装依赖，减少权限问题
 RUN chown -R bun:bun /app
+
+# 安装 bun 依赖
 USER bun
 RUN bun install --frozen-lockfile
 
+USER root
 RUN apt remove -y --no-install-recommends python3-setuptools && apt autoremove -y && apt clean
 
 # 再复制业务代码，避免每次代码变动都失去依赖缓存
 COPY --chown=bun:bun . .
+
+USER bun
 
 # 预创建持久化目录
 RUN mkdir -p /app/src/data /app/src/config /app/src/logs
