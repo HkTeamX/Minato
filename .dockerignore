@@ -1,0 +1,16 @@
+node_modules
+.git
+.gitignore
+.vscode
+logs
+src/config
+src/data
+src/logs
+*.log
+.env
+.env.*
+Dockerfile
+README.md
+CHANGELOG.md
+LICENSE.md
+Minato-Official-Plugins
