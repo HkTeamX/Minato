@@ -22,7 +22,7 @@ const atri = new ATRI({
   plugins: [],
   configDir: config.CONFIG_DIR,
   logDir: config.LOG_DIR,
-  saveLogs: config.SAVE_LOGS ?? level <= LogLevel.DEBUG,
+  saveLogs: config.SAVE_LOGS ?? level > LogLevel.DEBUG,
   botConfig: {
     prefix: config.PREFIX,
     adminId: config.ADMIN_ID,
@@ -47,9 +47,10 @@ const atri = new ATRI({
 
   if (level >= LogLevel.INFO) {
     atri.bot.config.adminId.forEach(adminId =>
-      atri.bot.sendMsg({ message_type: 'private', user_id: adminId }, [
-        Structs.text(`Minato 启动完成! 总耗时: ${totalTime}ms`),
-      ]),
+      atri.bot.sendMsg(
+        { message_type: 'private', user_id: adminId },
+        [Structs.text(`Minato 启动完成! 总耗时: ${totalTime}ms`)],
+      ),
     )
   }
 })()

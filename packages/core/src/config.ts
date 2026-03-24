@@ -2,8 +2,6 @@ import type { NonEmptyArray } from '@atri-bot/core'
 import env from 'env-var'
 
 export const config = {
-  NODE_ENV: env.get('NODE_ENV').default('production').asEnum(['production', 'development']),
-
   LOG_LEVEL: env.get('LOG_LEVEL').default('INFO').asEnum(['DEBUG', 'INFO', 'WARN', 'ERROR']),
   TIMEZONE: env.get('TIMEZONE').default('Asia/Shanghai').asString(),
   CONFIG_DIR: env.get('CONFIG_DIR').default('./config').asString(),
