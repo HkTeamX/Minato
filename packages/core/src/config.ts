@@ -5,6 +5,7 @@ export const config = {
   LOG_LEVEL: env.get('LOG_LEVEL').default('INFO').asEnum(['DEBUG', 'INFO', 'WARN', 'ERROR']),
   TIMEZONE: env.get('TIMEZONE').default('Asia/Shanghai').asString(),
   CONFIG_DIR: env.get('CONFIG_DIR').default('./config').asString(),
+  DATA_DIR: env.get('DATA_DIR').default('./data').asString(),
   LOG_DIR: env.get('LOG_DIR').default('./logs').asString(),
   SAVE_LOGS: env.get('SAVE_LOGS').asBool(),
 
@@ -18,4 +19,6 @@ export const config = {
   NC_RECONNECTION_ENABLE: env.get('NC_RECONNECTION_ENABLE').default('true').asBool(),
   NC_RECONNECTION_ATTEMPTS: env.get('NC_RECONNECTION_ATTEMPTS').default('10').asInt(),
   NC_RECONNECTION_DELAY: env.get('NC_RECONNECTION_DELAY').default('5000').asInt(),
+
+  DATABASE_URL: env.get('DATABASE_URL').required().asString(),
 }

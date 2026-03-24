@@ -1,5 +1,8 @@
 import process from 'node:process'
 import { ATRI } from '@atri-bot/core'
+import { InitDbPlugin } from '@atri-bot/lib-db'
+import { HelpPlugin } from '@atri-bot/plugin-help'
+import { ProxyPlugin } from '@atri-bot/plugin-proxy'
 import { Logger, LogLevel } from '@huan_kong/logger'
 import { Structs } from 'node-napcat-ts'
 import { config } from './config.js'
@@ -19,9 +22,9 @@ logger.INFO('开始加载 Minato')
 
 const atri = new ATRI({
   logLevel: level,
-  plugins: [],
   configDir: config.CONFIG_DIR,
   logDir: config.LOG_DIR,
+  dataDir: config.DATA_DIR,
   saveLogs: config.SAVE_LOGS ?? level > LogLevel.DEBUG,
   botConfig: {
     prefix: config.PREFIX,
@@ -40,6 +43,15 @@ const atri = new ATRI({
 
 ;(async () => {
   await atri.init()
+
+  await atri.installPlugin(InitDbPlugin({
+    connectString: config.DATABASE_URL,
+  }))
+
+  await Promise.all([
+    atri.installPlugin(HelpPlugin),
+    atri.installPlugin(ProxyPlugin),
+  ])
 
   const totalTime = (process.hrtime.bigint() - startTime) / BigInt(1e6)
 

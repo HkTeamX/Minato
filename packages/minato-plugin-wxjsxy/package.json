@@ -1,0 +1,31 @@
+{
+  "name": "@minato-bot/atri-bot-plugin-wxjsxy",
+  "version": "1.0.3",
+  "description": "wxjsxy for atri framework",
+  "author": "huan_kong",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist/**/*"
+  ],
+  "scripts": {
+    "build": "pnpm run type-check && pnpm run lint && tsup",
+    "clean": "rimraf dist",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "type-check": "tsc --noEmit -p tsconfig.json --composite false"
+  },
+  "dependencies": {
+    "@atri-bot/core": "^1.1.30",
+    "@atri-bot/lib-request": "^1.1.12",
+    "@huan_kong/logger": "^1.0.6",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.19",
+    "node-napcat-ts": "^0.4.20"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2"
+  }
+}

@@ -2,8 +2,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "lint": "bun run --filter './packages/*' --filter '[lint]' lint",
-    "typecheck": "bun run --filter './packages/*' --filter '[typecheck]' typecheck",
+    "lint": "bun run --workspaces lint",
+    "typecheck": "bun run --workspaces typecheck",
     "clean": "rm -rf node_modules && bun install"
   },
   "dependencies": {
