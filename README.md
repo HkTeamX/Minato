@@ -1,4 +1,4 @@
-<img src="minato.png" align="right" style="height:500px;width:180px;" alt="logo"/>
+<img src="https://github.com/HkTeamX/Minato/blob/main/minato.png?raw=true" align="right" style="height:500px;width:180px;" alt="logo"/>
 
 # 🤖 Minato
 
