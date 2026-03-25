@@ -1,4 +1,5 @@
-import { DataTypes, Model, type Optional, type Sequelize } from 'sequelize'
+import type { Optional, Sequelize } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 import packageJson from '../package.json' with { type: 'json' }
 
 export const VERSION_KEY = Symbol('@minato-bot/atri-bot-plugin-gugu:db-version')
@@ -20,8 +21,7 @@ export type PigeonsCreationAttributes = Optional<PigeonsAttributes, 'created_at'
 
 export class Pigeons
   extends Model<PigeonsAttributes, PigeonsCreationAttributes>
-  implements PigeonsAttributes
-{
+  implements PigeonsAttributes {
   declare user_id: number
   declare pigeon_num: number
 
@@ -48,8 +48,7 @@ export type PigeonHistoriesCreationAttributes = Optional<
 
 export class PigeonHistories
   extends Model<PigeonHistoriesAttributes, PigeonHistoriesCreationAttributes>
-  implements PigeonHistoriesAttributes
-{
+  implements PigeonHistoriesAttributes {
   declare id: number
   declare user_id: number
   declare operation: number
@@ -61,7 +60,7 @@ export class PigeonHistories
   declare readonly updated_at: Date
 }
 
-export const initDb = async (sequelize: Sequelize, ignoreVersion = false) => {
+export async function initDb(sequelize: Sequelize, ignoreVersion = false) {
   if (!ignoreVersion) {
     // 检查全局版本标志位
     const global = globalThis as unknown as GlobalWithVersion
@@ -69,10 +68,10 @@ export const initDb = async (sequelize: Sequelize, ignoreVersion = false) => {
 
     if (globalVersion && globalVersion !== DB_SCHEMA_VERSION) {
       throw new Error(
-        `数据库版本冲突！检测到多个版本的 @minato-bot/atri-bot-plugin-gugu 同时运行。\n` +
-          `已初始化版本: ${globalVersion}\n` +
-          `当前版本: ${DB_SCHEMA_VERSION}\n` +
-          `请确保所有依赖此插件的插件都使用最新版本。`,
+        `数据库版本冲突！检测到多个版本的 @minato-bot/atri-bot-plugin-gugu 同时运行。\n`
+        + `已初始化版本: ${globalVersion}\n`
+        + `当前版本: ${DB_SCHEMA_VERSION}\n`
+        + `请确保所有依赖此插件的插件都使用最新版本。`,
       )
     }
 

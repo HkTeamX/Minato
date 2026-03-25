@@ -1,8 +1,5 @@
 import process from 'node:process'
 import { ATRI } from '@atri-bot/core'
-import { InitDbPlugin } from '@atri-bot/lib-db'
-import { HelpPlugin } from '@atri-bot/plugin-help'
-import { ProxyPlugin } from '@atri-bot/plugin-proxy'
 import { Logger, LogLevel } from '@huan_kong/logger'
 import { Structs } from 'node-napcat-ts'
 import { config } from './config.js'
@@ -26,6 +23,7 @@ const atri = new ATRI({
   logDir: config.LOG_DIR,
   dataDir: config.DATA_DIR,
   saveLogs: config.SAVE_LOGS ?? level > LogLevel.DEBUG,
+  modulesDir: config.MODULES_DIR,
   botConfig: {
     prefix: config.PREFIX,
     adminId: config.ADMIN_ID,
@@ -44,13 +42,9 @@ const atri = new ATRI({
 ;(async () => {
   await atri.init()
 
-  await atri.installPlugin(InitDbPlugin({
-    connectString: config.DATABASE_URL,
-  }))
-
   await Promise.all([
-    atri.installPlugin(HelpPlugin),
-    atri.installPlugin(ProxyPlugin),
+    atri.installPlugin('@atri-bot/plugin-help'),
+    atri.installPlugin('@atri-bot/plugin-proxy'),
   ])
 
   const totalTime = (process.hrtime.bigint() - startTime) / BigInt(1e6)

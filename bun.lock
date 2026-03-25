@@ -18,13 +18,12 @@
       "name": "@minato-bot/core",
       "version": "2.0.0",
       "dependencies": {
-        "@atri-bot/core": "^2.0.6",
-        "@atri-bot/lib-db": "^2.0.3",
-        "@atri-bot/plugin-help": "^2.0.2",
-        "@atri-bot/plugin-proxy": "^2.0.2",
-        "@huan_kong/logger": "^2.0.2",
-        "env-var": "^7.5.0",
-        "node-napcat-ts": "^0.4.23",
+        "@atri-bot/core": "latest",
+        "@atri-bot/plugin-help": "latest",
+        "@atri-bot/plugin-proxy": "latest",
+        "@huan_kong/logger": "latest",
+        "env-var": "latest",
+        "node-napcat-ts": "latest",
       },
     },
     "packages/minato-plugin-corpus": {
@@ -80,9 +79,9 @@
 
     "@atri-bot/lib-request": ["@atri-bot/lib-request@1.2.0", "", { "dependencies": { "@atri-bot/core": "^2.0.0", "@huan_kong/logger": "^2.0.2", "ky": "^1.14.3" } }, "sha512-fd+bTdr7EYku3OgbnNNLGTubA2S4YjMEqBf/PoM5xuITseLoTSa/JjXxcbNqcHy9gWfyRuVssVgkWZmMZuff3g=="],
 
-    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@2.0.2", "", { "dependencies": { "@atri-bot/core": "^2.0.0", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-T4BjPDQ5CgH+3kPXuqljaMy2lTg3jzOONsFzO/L22bF/dw71AiTX8ltsmCwxPbw07oPryyAKRwuavCeJEolmJQ=="],
+    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@2.0.3", "", { "dependencies": { "@atri-bot/core": "^2.0.7", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-p1EFXP0D1KD8DChdGnQZFt848wItITmkToCyf0RH4G5UOMKZuFuznBmh5pmh65IpbPma/npIJBkf9admhQ2pVQ=="],
 
-    "@atri-bot/plugin-proxy": ["@atri-bot/plugin-proxy@2.0.2", "", { "dependencies": { "@atri-bot/core": "^2.0.2", "@huan_kong/node-global-proxy": "^1.0.2" } }, "sha512-fx9FCpaJRfkh3yC2K5ZW2DVv2F4UF1r69znYhj/iXh+/wA9NA11fcr3L3GZOYwiSWv3UhkVRL0VP9noXJDowKA=="],
+    "@atri-bot/plugin-proxy": ["@atri-bot/plugin-proxy@2.0.3", "", { "dependencies": { "@atri-bot/core": "^2.0.7", "@huan_kong/node-global-proxy": "^1.0.2" } }, "sha512-OSyn4PX/7Sn1tZ0u0nZuii3RlVg/xh9dEazyuAvN68FLcGNwZP8RHZQL+XKr/sYIz1jqEDpVvyWeD/idCkK3Zw=="],
 
     "@azure-rest/core-client": ["@azure-rest/core-client@2.5.1", "", { "dependencies": { "@azure/abort-controller": "^2.1.2", "@azure/core-auth": "^1.10.0", "@azure/core-rest-pipeline": "^1.22.0", "@azure/core-tracing": "^1.3.0", "@typespec/ts-http-runtime": "^0.3.0", "tslib": "^2.6.2" } }, "sha512-EHaOXW0RYDKS5CFffnixdyRPak5ytiCtU7uXDcP/uiY+A6jFRwNGzzJBiznkCzvi5EYpY+YWinieqHb0oY916A=="],
 
@@ -1050,9 +1049,9 @@
 
     "@atri-bot/lib-request/@huan_kong/logger": ["@huan_kong/logger@2.0.2", "", { "dependencies": { "picocolors": "^1.1.1" } }, "sha512-5RKRD1x62TEEu0SKx/g+p+iIyggvOKWeHuJQNZoq+6Ufuw1NJIZtqx46VBLUs4jyceerfX8o3O1KxMvh8y3fOQ=="],
 
-    "@atri-bot/plugin-help/@atri-bot/core": ["@atri-bot/core@2.0.6", "", { "dependencies": { "@huan_kong/logger": "^2.0.2", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-Bdeg5xe36LdBw5wbrsQF4wAV3pOdkCluVjh1/xRcgmWUi8dUStZmEBeqNXkrmaeIZcz035jRmavAJEN10wF91Q=="],
+    "@atri-bot/plugin-help/@atri-bot/core": ["@atri-bot/core@2.0.8", "", { "dependencies": { "@huan_kong/logger": "^2.0.2", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-jb63qJQzAJfKd8uqmUtjKze3Y85JzWIyZnQg4Ck67Rr+efx9F9u9kht1qEj03hb4VZ3sRwJNPyoHlrEEdhPoBQ=="],
 
-    "@atri-bot/plugin-proxy/@atri-bot/core": ["@atri-bot/core@2.0.6", "", { "dependencies": { "@huan_kong/logger": "^2.0.2", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-Bdeg5xe36LdBw5wbrsQF4wAV3pOdkCluVjh1/xRcgmWUi8dUStZmEBeqNXkrmaeIZcz035jRmavAJEN10wF91Q=="],
+    "@atri-bot/plugin-proxy/@atri-bot/core": ["@atri-bot/core@2.0.8", "", { "dependencies": { "@huan_kong/logger": "^2.0.2", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-jb63qJQzAJfKd8uqmUtjKze3Y85JzWIyZnQg4Ck67Rr+efx9F9u9kht1qEj03hb4VZ3sRwJNPyoHlrEEdhPoBQ=="],
 
     "@babel/types/@babel/helper-validator-identifier": ["@babel/helper-validator-identifier@8.0.0-rc.2", "", {}, "sha512-xExUBkuXWJjVuIbO7z6q7/BA9bgfJDEhVL0ggrggLMbg0IzCUWGT1hZGE8qUH7Il7/RD/a6cZ3AAFrrlp1LF/A=="],
 
@@ -1064,9 +1063,7 @@
 
     "@eslint/markdown/@eslint/plugin-kit": ["@eslint/plugin-kit@0.4.1", "", { "dependencies": { "@eslint/core": "^0.17.0", "levn": "^0.4.1" } }, "sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA=="],
 
-    "@minato-bot/core/@atri-bot/core": ["@atri-bot/core@2.0.6", "", { "dependencies": { "@huan_kong/logger": "^2.0.2", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-Bdeg5xe36LdBw5wbrsQF4wAV3pOdkCluVjh1/xRcgmWUi8dUStZmEBeqNXkrmaeIZcz035jRmavAJEN10wF91Q=="],
-
-    "@minato-bot/core/@atri-bot/lib-db": ["@atri-bot/lib-db@2.0.3", "", { "dependencies": { "@atri-bot/core": "^2.0.2", "@huan_kong/logger": "^2.0.2", "drizzle-orm": "^1.0.0-beta.19" } }, "sha512-LJO68gGEz0M9Xn1mSt5CV+hZGv3pgg4GnBG8upusFrqhMg8Y3udbD+/QNpCDsSSVZIsZGpNprOWEHmLsnJRbYg=="],
+    "@minato-bot/core/@atri-bot/core": ["@atri-bot/core@2.0.9", "", { "dependencies": { "@huan_kong/logger": "^2.0.2", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.23", "yargs": "^18.0.0" } }, "sha512-r7yoctOtJhZ0o+cTwiNVSwdpkqsxFVg9jhz989+iDQHNamzRLYVWZ2+KBiNemAApVpDvJ+wcbl5CQbyjmk0ORA=="],
 
     "@minato-bot/core/@huan_kong/logger": ["@huan_kong/logger@2.0.2", "", { "dependencies": { "picocolors": "^1.1.1" } }, "sha512-5RKRD1x62TEEu0SKx/g+p+iIyggvOKWeHuJQNZoq+6Ufuw1NJIZtqx46VBLUs4jyceerfX8o3O1KxMvh8y3fOQ=="],
 
