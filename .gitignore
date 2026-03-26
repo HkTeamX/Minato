@@ -2,8 +2,7 @@
 .vscode
 node_modules
 config
-db.sqlite
-Minato-Official-Plugins
-logs
 !./src/config/@atri-bot__plugin-plugin-store.json
+logs
 data
+dist
