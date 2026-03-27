@@ -46,6 +46,7 @@ const atri = new ATRI({
     atri.installPlugin('@atri-bot/plugin-help'),
     atri.installPlugin('@atri-bot/plugin-proxy'),
     atri.installPlugin('@minato-bot/plugin-gugu'),
+    atri.installPlugin('@minato-bot/plugin-wxjsxy'),
   ])
 
   const totalTime = (process.hrtime.bigint() - startTime) / BigInt(1e6)
