@@ -1,6 +1,0 @@
-{
-  "watch": ["./packages"],
-  "ext": ".ts",
-  "ignore": [],
-  "exec": "bun run --cwd packages/core dev"
-}

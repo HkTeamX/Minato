@@ -15,13 +15,13 @@
     "./dist/**/*"
   ],
   "scripts": {
-    "dev": "bun run ./src/index.ts",
-    "build": "",
+    "dev": "nodemon",
+    "start": "bun run ./src/index.ts",
     "lint": "eslint",
     "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^2.2.6",
+    "@atri-bot/core": "^2.2.7",
     "@atri-bot/plugin-help": "^2.2.2",
     "@atri-bot/plugin-proxy": "^2.2.0",
     "@huan_kong/logger": "^2.0.2",

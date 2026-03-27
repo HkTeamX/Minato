@@ -1,0 +1,6 @@
+{
+  "watch": [".."],
+  "ext": ".ts",
+  "ignore": [],
+  "exec": "bun start"
+}

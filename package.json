@@ -1,10 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "nodemon",
     "lint": "bun run --workspaces lint",
-    "typecheck": "bun run --workspaces typecheck",
-    "clean": "rm -rf node_modules && bun install"
+    "typecheck": "bun run --workspaces typecheck"
   },
   "dependencies": {
     "@antfu/eslint-config": "^7.7.3",

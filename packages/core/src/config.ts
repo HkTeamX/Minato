@@ -7,7 +7,7 @@ export const config = {
   CONFIG_DIR: env.get('CONFIG_DIR').default('./config').asString(),
   DATA_DIR: env.get('DATA_DIR').default('./data').asString(),
   LOG_DIR: env.get('LOG_DIR').default('./logs').asString(),
-  MODULES_DIR: env.get('MODULES_DIR').default('.').asString(),
+  MODULES_DIR: env.get('MODULES_DIR').default('./node_modules').asString(),
   SAVE_LOGS: env.get('SAVE_LOGS').asBool(),
 
   PREFIX: env.get('PREFIX').required().asJson() as NonEmptyArray<string>,
