@@ -1,0 +1,32 @@
+{
+  "name": "@minato-bot/plugin-gugu",
+  "type": "module",
+  "version": "2.0.4",
+  "description": "gugu for atri framework",
+  "author": "huan_kong",
+  "license": "MIT",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "./dist/**/*",
+    "./drizzle/**/*"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit -p tsconfig.json --composite false",
+    "drizzle": "drizzle-kit"
+  },
+  "dependencies": {
+    "@atri-bot/core": "^2.2.7",
+    "@atri-bot/lib-db": "^2.1.4",
+    "dayjs": "^1.11.20",
+    "drizzle-orm": "^1.0.0-beta.20",
+    "node-napcat-ts": "^0.4.24",
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.35",
+    "drizzle-kit": "^1.0.0-beta.20"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@minato-bot/core",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "qqbot powered by atri framework",
+  "author": "huankong233",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HkTeamX/Minato.git"
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "./dist/**/*"
+  ],
+  "scripts": {
+    "dev": "nodemon",
+    "start": "bun run ./src/index.ts",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
+  },
+  "dependencies": {
+    "@atri-bot/core": "^2.2.7",
+    "@atri-bot/lib-db": "^2.1.4",
+    "@atri-bot/plugin-help": "^2.2.2",
+    "@atri-bot/plugin-proxy": "^2.2.0",
+    "@huan_kong/logger": "^2.0.2",
+    "@minato-bot/plugin-gugu": "workspace:*",
+    "@minato-bot/plugin-wxjsxy": "workspace:*",
+    "env-var": "^7.5.0",
+    "node-napcat-ts": "^0.4.24"
+  }
+}
