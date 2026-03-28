@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@atri-bot/core": "^2.2.7",
+    "@atri-bot/lib-db": "^2.1.4",
     "@atri-bot/plugin-help": "^2.2.2",
     "@atri-bot/plugin-proxy": "^2.2.0",
     "@huan_kong/logger": "^2.0.2",

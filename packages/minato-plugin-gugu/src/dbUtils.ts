@@ -1,28 +1,31 @@
 import type { InferSelectModel } from 'drizzle-orm'
 import path from 'node:path'
-import process from 'node:process'
+import { useDb } from '@atri-bot/lib-db'
 import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
-import { migrate } from 'drizzle-orm/bun-sql/migrator'
+import PackageJson from '../package.json' with { type: 'json' }
 import { Relations, Schema } from './db.js'
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL 环境变量未设置, 请设置 DATABASE_URL 环境变量以连接数据库')
-}
+// 内部私有变量，用于缓存实例
+let _drizzle: Awaited<ReturnType<typeof useDb<typeof Schema, typeof Relations>>> | null = null
 
-export const Drizzle = drizzle(process.env.DATABASE_URL, {
-  schema: Schema,
-  relations: Relations,
-})
-
-export async function migrateDrizzle() {
-  await migrate(Drizzle, {
-    migrationsFolder: path.join(import.meta.dir, '../drizzle'),
-    migrationsTable: 'gugu_drizzle_migrations',
-  })
+export async function getDrizzle() {
+  if (!_drizzle) {
+    _drizzle = await useDb({
+      pluginName: PackageJson.name,
+      config: {
+        schema: Schema,
+        relations: Relations,
+      },
+      migration: {
+        migrationsFolder: path.join(import.meta.dir, '../drizzle'),
+      },
+    })
+  }
+  return _drizzle
 }
 
 export async function getUserPigeonInfo(user_id: number): Promise<InferSelectModel<typeof Schema.Pigeons>> {
+  const Drizzle = await getDrizzle()
   const pigeonInfo = await Drizzle.query.Pigeons.findFirst({ where: { user_id } })
   if (pigeonInfo) {
     return pigeonInfo
@@ -32,13 +35,15 @@ export async function getUserPigeonInfo(user_id: number): Promise<InferSelectMod
 }
 
 export async function addUserPigeonNum(user_id: number, addNum: number, reason: string) {
+  const Drizzle = await getDrizzle()
+
   const pigeonInfo = await getUserPigeonInfo(user_id)
   if (addNum < 0) {
     return false
   }
 
   await Drizzle.update(Schema.Pigeons)
-    .set({ pigeon_num: pigeonInfo.pigeon_num + addNum })
+    .set({ pigeon_num: pigeonInfo.pigeon_num + addNum, gugued: true })
     .where(eq(Schema.Pigeons.user_id, user_id))
 
   await Drizzle.insert(Schema.PigeonHistories).values({
@@ -53,6 +58,8 @@ export async function addUserPigeonNum(user_id: number, addNum: number, reason: 
 }
 
 export async function reduceUserPigeonNum(user_id: number, reduceNum: number, reason: string) {
+  const Drizzle = await getDrizzle()
+
   const pigeonInfo = await getUserPigeonInfo(user_id)
   if (reduceNum <= 0 || pigeonInfo.pigeon_num - reduceNum < 0) {
     return false

@@ -1,7 +1,7 @@
 import type { TextSegment } from 'node-napcat-ts'
 import type { getDyProcessReq, LoginToCasReq } from './api.js'
 import { Plugin } from '@atri-bot/core'
-import { CronJob } from 'cron'
+import { useCron } from '@atri-bot/lib-cron'
 import dayjs from 'dayjs'
 import { Structs } from 'node-napcat-ts'
 import yargs from 'yargs'
@@ -170,33 +170,37 @@ export function checkHaveAccount(config: WxjsxyPluginConfig, userId: number) {
   return null
 }
 
-export const crons: Record<number, CronJob> = {}
-
 export const plugin = new Plugin(PackageJson.name)
   .setDefaultConfig<WxjsxyPluginConfig>({
     accounts: {},
     crons: {},
   })
-  .onInstall(async ({ event, config, bot, saveConfig }) => {
+  .onInstall(async ({ event, config, atri, bot, saveConfig }) => {
+    const cron = useCron(atri)
+
     async function refreshCrons() {
       for (const [userId, cronInfo] of Object.entries(config.crons)) {
         const user_id = Number.parseFloat(userId)
-        if (crons[user_id]) {
-          crons[user_id].stop()
+        if (cron.getCronJob(`wxjsxy_cron_${user_id}`)) {
+          cron.removeCronJob(`wxjsxy_cron_${user_id}`)
         }
 
-        crons[user_id] = new CronJob(cronInfo.cron, async () => {
-          const accountCheck = checkHaveAccount(config, user_id)
+        cron.addCronJob({
+          name: `wxjsxy_cron_${user_id}`,
+          cronTime: cronInfo.cron,
+          onTick: async () => {
+            const accountCheck = checkHaveAccount(config, user_id)
 
-          if (!accountCheck) {
-            delete config.crons[user_id]
-            await saveConfig()
-            return
-          }
+            if (!accountCheck) {
+              delete config.crons[user_id]
+              await saveConfig()
+              return
+            }
 
-          const msg = await startProcess(config.accounts[user_id], cronInfo.offset)
-          await bot.sendMsg({ message_type: 'private', user_id }, msg)
-        }, null, true)
+            const msg = await startProcess(config.accounts[user_id], cronInfo.offset)
+            await bot.sendMsg({ message_type: 'private', user_id }, msg)
+          },
+        })
       }
     }
 
@@ -242,10 +246,7 @@ export const plugin = new Plugin(PackageJson.name)
 
         delete config.accounts[context.user_id]
         delete config.crons[context.user_id]
-        if (crons[context.user_id]) {
-          crons[context.user_id].stop()
-          delete crons[context.user_id]
-        }
+        cron.removeCronJob(`wxjsxy_cron_${context.user_id}`)
         await saveConfig()
         await bot.sendMsg(context, [Structs.text('账号删除成功')])
       },
@@ -340,12 +341,13 @@ export const plugin = new Plugin(PackageJson.name)
       },
     })
   })
-  .onUninstall(() => {
-    const cronsEntries = Object.entries(crons)
-    while (cronsEntries.length > 0) {
-      const cronJob = cronsEntries.pop()
-      if (cronJob && cronJob[1]) {
-        cronJob[1].stop()
+  .onUninstall(({ atri }) => {
+    const cron = useCron(atri)
+
+    const cronsEntries = Object.entries(cron.getCronJobs())
+    for (const [name, _] of cronsEntries) {
+      if (name.startsWith('wxjsxy_cron_')) {
+        cron.removeCronJob(name)
       }
     }
   })

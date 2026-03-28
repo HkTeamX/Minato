@@ -1,0 +1,1 @@
+ALTER TABLE "pigeons" ADD COLUMN "gugued" boolean DEFAULT false NOT NULL;

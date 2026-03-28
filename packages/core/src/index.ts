@@ -1,5 +1,6 @@
 import process from 'node:process'
 import { ATRI } from '@atri-bot/core'
+import { initDb } from '@atri-bot/lib-db'
 import { Logger, LogLevel } from '@huan_kong/logger'
 import { Structs } from 'node-napcat-ts'
 import { config } from './config.js'
@@ -41,6 +42,10 @@ const atri = new ATRI({
 
 ;(async () => {
   await atri.init()
+
+  await initDb(atri, {
+    connectString: config.DATABASE_URL,
+  })
 
   await Promise.all([
     atri.installPlugin('@atri-bot/plugin-help'),

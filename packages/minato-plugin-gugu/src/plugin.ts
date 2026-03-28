@@ -6,11 +6,12 @@ import { Structs } from 'node-napcat-ts'
 import yargs from 'yargs'
 import PackageJson from '../package.json' with { type: 'json' }
 import { Schema } from './db.js'
-import { addUserPigeonNum, Drizzle, getUserPigeonInfo, migrateDrizzle } from './dbUtils.js'
+import { addUserPigeonNum, getDrizzle, getUserPigeonInfo } from './dbUtils.js'
 
 export const guguPluginGuguRegexp = /咕咕/
 export async function handleGuguCommand(user_id: number, addRange: [number, number]) {
   const today = dayjs()
+  const Drizzle = await getDrizzle()
 
   const isGuguToday = await Drizzle.select()
     .from(Schema.PigeonHistories)
@@ -69,15 +70,14 @@ export const plugin = new Plugin(PackageJson.name)
   })
   .onInstall(
     async ({ event, config, bot }) => {
-      // 在插件安装时执行数据库迁移
-      await migrateDrizzle()
+      const Drizzle = await getDrizzle()
 
       event.regCommandEvent({
         trigger: guguPluginGuguRegexp,
         callback: async ({ context }) => {
           const user_id = context.user_id
           const pigronInfo = await Drizzle.query.Pigeons.findFirst({ where: { user_id } })
-          if (!pigronInfo) {
+          if (!pigronInfo || !pigronInfo.gugued) {
             await addUserPigeonNum(user_id, config.firstAdd, '初始赠送')
             await bot.sendMsg(context, [Structs.text(`欢迎第一次咕咕! 作为初始奖励, 你获得了 ${config.firstAdd} 只鸽子!`)])
           }

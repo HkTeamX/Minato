@@ -1,5 +1,5 @@
 import { defineRelations } from 'drizzle-orm'
-import { bigint, bigserial, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { bigint, bigserial, boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const timestamps = {
   created_at: timestamp().notNull().defaultNow(),
@@ -12,6 +12,7 @@ export const timestamps = {
 export const Pigeons = pgTable('pigeons', {
   user_id: bigserial('id', { mode: 'number' }).primaryKey(),
   pigeon_num: bigint('pigeon_num', { mode: 'number' }).notNull(),
+  gugued: boolean().notNull().default(false),
   ...timestamps,
 })
 
