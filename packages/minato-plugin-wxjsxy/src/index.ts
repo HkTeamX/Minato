@@ -9,11 +9,11 @@ import PackageJson from '../package.json' with { type: 'json' }
 import { getCasLoginToken, getDyCookie, getDyProcessDetail, getDyProcessList, getDyToken, loginToCas, setDyProcess } from './api.js'
 
 export interface WxjsxyPluginConfig {
-  accounts: Record<number, {
+  accounts: Record<string, {
     username: string
     password: string
   }>
-  crons: Record<number, {
+  crons: Record<string, {
     cron: string
     offset: number
   }>
@@ -163,11 +163,11 @@ export async function getProcessList(req: LoginToCasReq, data: getDyProcessReq) 
   ]
 }
 
-export function checkHaveAccount(config: WxjsxyPluginConfig, userId: number) {
+export function checkHaveAccount(config: WxjsxyPluginConfig, userId: string): [false, TextSegment[] ] | [true, null] {
   if (!config.accounts[userId]) {
-    return [Structs.text('请先添加账号，使用命令：wxjsxy添加账号 -u <用户名> -p <密码>')]
+    return [false, [Structs.text('请先添加账号，使用命令：wxjsxy添加账号 -u <用户名> -p <密码>')]]
   }
-  return null
+  return [true, null]
 }
 
 export const plugin = new Plugin(PackageJson.name)
@@ -175,12 +175,11 @@ export const plugin = new Plugin(PackageJson.name)
     accounts: {},
     crons: {},
   })
-  .onInstall(async ({ event, config, atri, bot, saveConfig }) => {
+  .onInstall(async ({ event, config, atri, bot, saveConfig, logger }) => {
     const cron = useCron(atri)
 
     async function refreshCrons() {
-      for (const [userId, cronInfo] of Object.entries(config.crons)) {
-        const user_id = Number.parseFloat(userId)
+      for (const [user_id, cronInfo] of Object.entries(config.crons)) {
         if (cron.getCronJob(`wxjsxy_cron_${user_id}`)) {
           cron.removeCronJob(`wxjsxy_cron_${user_id}`)
         }
@@ -189,16 +188,17 @@ export const plugin = new Plugin(PackageJson.name)
           name: `wxjsxy_cron_${user_id}`,
           cronTime: cronInfo.cron,
           onTick: async () => {
-            const accountCheck = checkHaveAccount(config, user_id)
+            const [haveAccount, _] = checkHaveAccount(config, user_id.toString())
 
-            if (!accountCheck) {
+            if (!haveAccount) {
+              logger.WARN(`用户 ${user_id} 的账号信息有误，无法执行定时请假任务，已自动删除定时任务`, config, config.accounts[user_id], typeof user_id)
               delete config.crons[user_id]
               await saveConfig()
               return
             }
 
             const msg = await startProcess(config.accounts[user_id], cronInfo.offset)
-            await bot.sendMsg({ message_type: 'private', user_id }, msg)
+            await bot.sendMsg({ message_type: 'private', user_id: Number.parseFloat(user_id) }, msg)
           },
         })
       }
@@ -238,9 +238,9 @@ export const plugin = new Plugin(PackageJson.name)
     event.regCommandEvent({
       trigger: 'wxjsxy删除账号',
       callback: async ({ context }) => {
-        const accountCheck = checkHaveAccount(config, context.user_id)
-        if (accountCheck) {
-          await bot.sendMsg(context, accountCheck)
+        const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+        if (!haveAccount) {
+          await bot.sendMsg(context, errorMsg)
           return
         }
 
@@ -256,9 +256,9 @@ export const plugin = new Plugin(PackageJson.name)
       trigger: 'wxjsxy请假',
       commander: startProcessCommander,
       callback: async ({ context, options }) => {
-        const accountCheck = checkHaveAccount(config, context.user_id)
-        if (accountCheck) {
-          await bot.sendMsg(context, accountCheck)
+        const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+        if (!haveAccount) {
+          await bot.sendMsg(context, errorMsg)
           return
         }
 
@@ -271,9 +271,9 @@ export const plugin = new Plugin(PackageJson.name)
       trigger: 'wxjsxy请假情况',
       commander: getProcessListCommander,
       callback: async ({ context, options }) => {
-        const accountCheck = checkHaveAccount(config, context.user_id)
-        if (accountCheck) {
-          await bot.sendMsg(context, accountCheck)
+        const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+        if (!haveAccount) {
+          await bot.sendMsg(context, errorMsg)
           return
         }
 
@@ -286,14 +286,14 @@ export const plugin = new Plugin(PackageJson.name)
       trigger: 'wxjsxy定时请假',
       commander: setCronProcessCommander,
       callback: async ({ context, options }) => {
-        const accountCheck = checkHaveAccount(config, context.user_id)
-        if (accountCheck) {
-          await bot.sendMsg(context, accountCheck)
+        const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+        if (!haveAccount) {
+          await bot.sendMsg(context, errorMsg)
           return
         }
 
         if (config.crons[context.user_id]) {
-          await bot.sendMsg(context, [Structs.text('已存在定时请假任务，正在覆盖原有任务')])
+          await bot.sendMsg(context, [Structs.text('已存在定时请假任务')])
           return
         }
 
@@ -323,9 +323,9 @@ export const plugin = new Plugin(PackageJson.name)
     event.regCommandEvent({
       trigger: 'wxjsxy取消定时请假',
       callback: async ({ context }) => {
-        const accountCheck = checkHaveAccount(config, context.user_id)
-        if (accountCheck) {
-          await bot.sendMsg(context, accountCheck)
+        const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+        if (!haveAccount) {
+          await bot.sendMsg(context, errorMsg)
           return
         }
 

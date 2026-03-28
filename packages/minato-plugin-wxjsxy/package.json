@@ -1,7 +1,7 @@
 {
   "name": "@minato-bot/plugin-wxjsxy",
   "type": "module",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "wxjsxy for atri framework",
   "author": "huan_kong",
   "license": "MIT",
