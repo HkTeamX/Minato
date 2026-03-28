@@ -1,0 +1,19 @@
+# 忽略依赖库（这个最重要！）
+node_modules
+.bun-cache
+
+# 忽略本地构建产物
+dist
+.next
+.output
+.nuxt
+
+# 忽略 Git 记录
+.git
+.gitignore
+
+# 忽略系统文件和日志
+*.log
+.DS_Store
+.vscode
+.idea

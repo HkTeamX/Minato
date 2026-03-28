@@ -26,8 +26,8 @@
     "@atri-bot/plugin-help": "^2.2.2",
     "@atri-bot/plugin-proxy": "^2.2.0",
     "@huan_kong/logger": "^2.0.2",
-    "@minato-bot/plugin-gugu": "workspace:*",
-    "@minato-bot/plugin-wxjsxy": "workspace:*",
+    "@minato-bot/plugin-gugu": "^2.0.5",
+    "@minato-bot/plugin-wxjsxy": "^2.0.4",
     "env-var": "^7.5.0",
     "node-napcat-ts": "^0.4.24"
   }

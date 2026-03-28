@@ -297,8 +297,8 @@ export const plugin = new Plugin(PackageJson.name)
           return
         }
 
-        if (options.cron.split(' ').length !== 5) {
-          await bot.sendMsg(context, [Structs.text('cron表达式格式错误，请提供5段表达式, 示例: 0 30 6 * * 表示每天6点30分')])
+        if (options.cron.split(' ').length !== 6) {
+          await bot.sendMsg(context, [Structs.text('cron表达式格式错误，请提供6段表达式, 示例: 0 30 6 * * * 表示每天6点30分')])
           return
         }
 

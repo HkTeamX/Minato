@@ -10,7 +10,7 @@ export const timestamps = {
 }
 
 export const Pigeons = pgTable('pigeons', {
-  user_id: bigserial('id', { mode: 'number' }).primaryKey(),
+  user_id: bigserial('user_id', { mode: 'number' }).primaryKey(),
   pigeon_num: bigint('pigeon_num', { mode: 'number' }).notNull(),
   gugued: boolean().notNull().default(false),
   ...timestamps,
