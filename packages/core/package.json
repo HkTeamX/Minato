@@ -21,11 +21,11 @@
     "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^2.2.7",
-    "@atri-bot/lib-db": "^2.1.4",
-    "@atri-bot/plugin-help": "^2.2.2",
-    "@atri-bot/plugin-proxy": "^2.2.0",
-    "@huan_kong/logger": "^2.0.2",
+    "@atri-bot/core": "^2.3.6",
+    "@atri-bot/lib-db": "^2.3.0",
+    "@atri-bot/plugin-help": "^2.3.1",
+    "@atri-bot/plugin-proxy": "^2.3.1",
+    "@huan_kong/logger": "^2.0.4",
     "@minato-bot/plugin-gugu": "^2.0.5",
     "@minato-bot/plugin-wxjsxy": "^2.0.5",
     "env-var": "^7.5.0",
