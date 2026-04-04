@@ -3,6 +3,7 @@ import { ATRI } from '@atri-bot/core'
 import { initDb } from '@atri-bot/lib-db'
 import { Logger, LogLevel } from '@huan_kong/logger'
 import { Structs } from 'node-napcat-ts'
+import PackageJson from '../package.json' with { type: 'json' }
 import { config } from './config.js'
 
 const startTime = process.hrtime.bigint()
@@ -19,6 +20,8 @@ const logger = new Logger({
 logger.INFO('开始加载 Minato')
 
 const atri = new ATRI({
+  name: 'Minato',
+  version: PackageJson.version,
   logLevel: level,
   configDir: config.CONFIG_DIR,
   logDir: config.LOG_DIR,

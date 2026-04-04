@@ -65,15 +65,15 @@
 
     "@antfu/install-pkg": ["@antfu/install-pkg@1.1.0", "", { "dependencies": { "package-manager-detector": "^1.3.0", "tinyexec": "^1.0.1" } }, "sha512-MGQsmw10ZyI+EJo45CdSER4zEb+p31LpDAFp2Z3gkSd1yqVZGi0Ebx++YTEMonJy4oChEMLsxZ64j8FH6sSqtQ=="],
 
-    "@atri-bot/core": ["@atri-bot/core@2.3.6", "", { "dependencies": { "@huan_kong/logger": "^2.0.4", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.24", "yaml": "^2.8.3", "yargs": "^18.0.0" } }, "sha512-F57bHo7rhHvOloBdGaa5rNvbuBNX01rFgFPhTDGg6FmC2pBuNWMaEeA3uv03AqRxDguw0iCw/GKm68qZTq98sA=="],
+    "@atri-bot/core": ["@atri-bot/core@2.4.2", "", { "dependencies": { "@huan_kong/logger": "^2.0.4", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.24", "yaml": "^2.8.3", "yargs": "^18.0.0" } }, "sha512-WqO6wenkLJRWbRPQJaYYAO1xgwa3+srVSlfeNxj5QxZnXTPptjgMoIyqyJ6eO/Hgb2YZOespLM7amjVRPdZzVA=="],
 
     "@atri-bot/lib-cron": ["@atri-bot/lib-cron@2.1.3", "", { "dependencies": { "@atri-bot/core": "^2.2.7", "cron": "^4.4.0" } }, "sha512-vz3zBMW9ka+juO8Wd0ZzUi4NRYoOMkGWVnSJ5uriRrYs4vmBGfcSIBepX93L1mTPEWeyOfAfQuY+AgUYWdNzMg=="],
 
     "@atri-bot/lib-db": ["@atri-bot/lib-db@2.3.0", "", { "dependencies": { "@huan_kong/logger": "^2.0.4", "drizzle-orm": "^1.0.0-beta.20" } }, "sha512-ybqyt8PJlXDoeWYWKb7v7g4/ep2nW1l1A28ZnMwAm9X33ejhK2AfHghMil9EvWw0N9q1X7qLAIwYer/HGpLAew=="],
 
-    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@2.3.1", "", { "dependencies": { "@atri-bot/core": "^2.3.6", "node-napcat-ts": "^0.4.24", "yargs": "^18.0.0" } }, "sha512-ColqjXYGbAGwYxwcsNfPzQ/rLWmg3cHnbDly1qOCTC572ww2RY1qecZPUV/olEDlsZp4uKpaAWgcmZRwWZC0qA=="],
+    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@2.4.1", "", { "dependencies": { "@atri-bot/core": "^2.4.1", "node-napcat-ts": "^0.4.24", "yargs": "^18.0.0" } }, "sha512-ccR7OM/BYT5u7RtnrWk9TGrjpxZndoHUq4Ke/zYa2OnAW3GUPCr+NJ4LhbCggF6DkWOPC9XFXTq4kJQX9pHWvQ=="],
 
-    "@atri-bot/plugin-proxy": ["@atri-bot/plugin-proxy@2.3.1", "", { "dependencies": { "@atri-bot/core": "^2.3.6", "@huan_kong/node-global-proxy": "^1.0.2" } }, "sha512-vvpWEEeb/DicxuIPHdYW0qwm/ODa4nhtneE9+QaZVqVy05Xkdg6HBIGQxmVsSPgWWid59aWRkn3A/jzFSoQ3Jw=="],
+    "@atri-bot/plugin-proxy": ["@atri-bot/plugin-proxy@2.3.2", "", { "dependencies": { "@atri-bot/core": "^2.3.7", "@huan_kong/node-global-proxy": "^1.0.2" } }, "sha512-6LgsxjOgFt4IsBIWr2vxLE49t0pXrN+3OMlSZPBZcbUicqLaOIyTcAeaJdtzwlOSqI1eygK4CTpLI8rMitJcZA=="],
 
     "@azure-rest/core-client": ["@azure-rest/core-client@2.5.1", "", { "dependencies": { "@azure/abort-controller": "^2.1.2", "@azure/core-auth": "^1.10.0", "@azure/core-rest-pipeline": "^1.22.0", "@azure/core-tracing": "^1.3.0", "@typespec/ts-http-runtime": "^0.3.0", "tslib": "^2.6.2" } }, "sha512-EHaOXW0RYDKS5CFffnixdyRPak5ytiCtU7uXDcP/uiY+A6jFRwNGzzJBiznkCzvi5EYpY+YWinieqHb0oY916A=="],
 
@@ -1172,6 +1172,10 @@
     "unconfig-core/quansync": ["quansync@1.0.0", "", {}, "sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA=="],
 
     "@atri-bot/lib-cron/@atri-bot/core/@huan_kong/logger": ["@huan_kong/logger@2.0.2", "", { "dependencies": { "picocolors": "^1.1.1" } }, "sha512-5RKRD1x62TEEu0SKx/g+p+iIyggvOKWeHuJQNZoq+6Ufuw1NJIZtqx46VBLUs4jyceerfX8o3O1KxMvh8y3fOQ=="],
+
+    "@minato-bot/core/@minato-bot/plugin-gugu/@atri-bot/core": ["@atri-bot/core@2.3.6", "", { "dependencies": { "@huan_kong/logger": "^2.0.4", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.24", "yaml": "^2.8.3", "yargs": "^18.0.0" } }, "sha512-F57bHo7rhHvOloBdGaa5rNvbuBNX01rFgFPhTDGg6FmC2pBuNWMaEeA3uv03AqRxDguw0iCw/GKm68qZTq98sA=="],
+
+    "@minato-bot/core/@minato-bot/plugin-wxjsxy/@atri-bot/core": ["@atri-bot/core@2.3.6", "", { "dependencies": { "@huan_kong/logger": "^2.0.4", "fs-extra": "^11.3.4", "node-napcat-ts": "^0.4.24", "yaml": "^2.8.3", "yargs": "^18.0.0" } }, "sha512-F57bHo7rhHvOloBdGaa5rNvbuBNX01rFgFPhTDGg6FmC2pBuNWMaEeA3uv03AqRxDguw0iCw/GKm68qZTq98sA=="],
 
     "@typescript-eslint/rule-tester/@typescript-eslint/parser/@typescript-eslint/scope-manager": ["@typescript-eslint/scope-manager@8.57.2", "", { "dependencies": { "@typescript-eslint/types": "8.57.2", "@typescript-eslint/visitor-keys": "8.57.2" } }, "sha512-snZKH+W4WbWkrBqj4gUNRIGb/jipDW3qMqVJ4C9rzdFc+wLwruxk+2a5D+uoFcKPAqyqEnSb4l2ULuZf95eSkw=="],
 
