@@ -1,7 +1,12 @@
+// eslint-disable-next-line unused-imports/no-unused-imports
+import type { Argv } from '@atri-bot/core'
+import type { getDyProcessReq, LoginToCasReq } from './api.js'
 import { Plugin } from '@atri-bot/core'
-import yargs from 'yargs'
+import { removeCronJob } from '@atri-bot/lib-cron'
+import { Structs } from 'node-napcat-ts'
 import PackageJson from '../package.json' with { type: 'json' }
-import { stopAllCrons, syncCrons } from './utils.js'
+import { getDyProcessDetail, getDyProcessList, loginToCas } from './api.js'
+import { checkHaveAccount, getDyTokenByCas, startProcess, stopAllCrons, syncCrons } from './utils.js'
 
 export interface WxjsxyPluginConfig {
   accounts: Record<string, {
@@ -36,249 +41,274 @@ export const plugin = new Plugin<WxjsxyPluginConfig>(PackageJson.name)
 
 export const addAccountCommand = plugin
   .command('wxjsxy添加账号')
-  .commander(
+  .commander(yargs =>
     yargs()
       .option('username', {
         alias: 'u',
         type: 'string',
         description: '账号',
-        demandOption: true,
       })
       .option('password', {
         alias: 'p',
         type: 'string',
         description: '密码',
-        demandOption: true,
       }),
   )
+  .callback(async ({ context, options, config, bot, saveConfig }) => {
+    if (checkHaveAccount(config, context.user_id.toString())[0]) {
+      await bot.sendMsg(context, [Structs.text('账号已存在，无需重复添加')])
+      return
+    }
+
+    let { username, password } = options
+
+    if (!username) {
+      await bot.sendMsg(context, [Structs.text('请输入账号(学号):')])
+      const msg = await bot.useMessage(context)
+      if (!msg) {
+        return
+      }
+      username = msg.raw_message.trim()
+    }
+
+    if (!password) {
+      await bot.sendMsg(context, [Structs.text('请输入密码(Wxjsxy@身份证后六位):')])
+      const msg = await bot.useMessage(context)
+      if (!msg) {
+        return
+      }
+      password = msg.raw_message.trim()
+    }
+
+    const casInfo = await loginToCas({ username, password })
+    if (!('ticket' in casInfo)) {
+      await bot.sendMsg(context, [Structs.text(`登录失败，请检查账号密码是否正确: \n ${JSON.stringify(casInfo)}`)])
+    }
+
+    await bot.sendMsg(context, [Structs.text(`登录成功, 返回信息: \n ${JSON.stringify(casInfo)}`)])
+
+    config.accounts[context.user_id.toString()] = {
+      username,
+      password,
+    }
+
+    await saveConfig()
+  })
 
 export const deleteAccountCommand = plugin
   .command('wxjsxy删除账号')
+  .callback(async ({ context, config, bot, saveConfig }) => {
+    const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+    if (!haveAccount) {
+      await bot.sendMsg(context, errorMsg)
+      return
+    }
 
-// export const startProcessCommander = yargs()
-//   .option('offset', {
-//     alias: 'o',
-//     type: 'number',
-//     description: '请假日期相对于今天的偏移，默认为0即请假当天',
-//     default: 0,
-//   })
+    delete config.accounts[context.user_id.toString()]
+    delete config.crons[context.user_id.toString()]
+    removeCronJob(`wxjsxy_cron_${context.user_id}`)
+    await saveConfig()
+    await bot.sendMsg(context, [Structs.text('账号删除成功')])
+  })
 
-// export const getProcessListCommander = yargs()
-//   .option('page', {
-//     alias: 'p',
-//     type: 'number',
-//     description: '页码',
-//     default: 1,
-//   })
-//   .option('size', {
-//     alias: 's',
-//     type: 'number',
-//     description: '每页数量',
-//     default: 1,
-//   })
+export const startProcessCommand = plugin
+  .command('wxjsxy请假')
+  .commander(yargs =>
+    yargs()
+      .option('offset', {
+        alias: 'o',
+        type: 'number',
+        description: '请假日期相对于今天的偏移，默认为0即请假当天',
+      }),
+  )
+  .callback(async ({ context, options, config, bot }) => {
+    const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+    if (!haveAccount) {
+      await bot.sendMsg(context, errorMsg)
+      return
+    }
 
-// export const setCronProcessCommander = yargs()
-//   .option('cron', {
-//     alias: 'c',
-//     type: 'string',
-//     description: 'cron表达式',
-//     demandOption: true,
-//   })
-//   .option('offset', {
-//     alias: 'o',
-//     type: 'number',
-//     description: '请假日期相对于今天的偏移，默认为0即请假当天',
-//     default: 0,
-//   })
+    let { offset } = options
+    if (!offset) {
+      await bot.sendMsg(context, [Structs.text('请输入请假日期相对于今天的偏移，默认为0即请假当天:')])
 
-// export async function getProcessList(req: LoginToCasReq, data: getDyProcessReq) {
-//   const dyTokenRes = await getDyTokenByCas(req)
-//   if (Array.isArray(dyTokenRes)) {
-//     return dyTokenRes
-//   }
+      const msg = await bot.useMessage(context)
+      if (!msg) {
+        return
+      }
 
-//   const processList = await getDyProcessList(dyTokenRes, data)
-//   if (processList.code !== 200) {
-//     return [Structs.text(`获取请假情况失败, 错误信息: ${JSON.stringify(processList)}`)]
-//   }
+      offset = Number.parseInt(msg.raw_message.trim())
+      if (Number.isNaN(offset)) {
+        await bot.sendMsg(context, [Structs.text('偏移必须是一个数字')])
+        return
+      }
+    }
 
-//   const processDetailList = await Promise.all(processList.rows.map(item => getDyProcessDetail(dyTokenRes, item.instanceId)))
-//   if (processDetailList.some(item => item.code !== 200)) {
-//     return [Structs.text(`获取请假详情失败, 错误信息: ${JSON.stringify(processDetailList)}`)]
-//   }
+    const msg = await startProcess(config.accounts[context.user_id.toString()], offset)
+    await bot.sendMsg(context, msg)
+  })
 
-//   return [
-//     Structs.text(`请假情况:\n`),
-//     Structs.text(
-//       processList.rows
-//         .map(
-//           (item, index) => {
-//             const strArr = [
-//               `- 申请时间: ${item.processStartTime}`,
-//               `  审核状态: ${item.approvaState}`,
-//             ]
+export async function getProcessList(req: LoginToCasReq, data: getDyProcessReq) {
+  const dyTokenRes = await getDyTokenByCas(req)
+  if (Array.isArray(dyTokenRes)) {
+    return dyTokenRes
+  }
 
-//             const detail = processDetailList[index]
-//             if (detail.code !== 200) {
-//               strArr.push(`  获取详情失败: ${JSON.stringify(detail)}`)
-//               return strArr.join('\n')
-//             }
+  const processList = await getDyProcessList(dyTokenRes, data)
+  if (processList.code !== 200) {
+    return [Structs.text(`获取请假情况失败, 错误信息: ${JSON.stringify(processList)}`)]
+  }
 
-//             strArr.push(
-//               `  申请时间: ${detail.rows.hisTasks[1].processStartTime}`,
-//               ...detail.rows.hisTasks[1].formSchema.formProperties.map(prop => `  ${prop.name}: ${prop.value}`),
-//             )
+  const processDetailList = await Promise.all(processList.rows.map(item => getDyProcessDetail(dyTokenRes, item.instanceId)))
+  if (processDetailList.some(item => item.code !== 200)) {
+    return [Structs.text(`获取请假详情失败, 错误信息: ${JSON.stringify(processDetailList)}`)]
+  }
 
-//             return strArr.join('\n')
-//           },
-//         )
-//         .join(''),
-//     ),
-//   ]
-// }
+  return [
+    Structs.text(`请假情况:\n`),
+    Structs.text(
+      processList.rows
+        .map(
+          (item, index) => {
+            const strArr = [
+              `- 申请时间: ${item.processStartTime}`,
+              `  审核状态: ${item.approvaState}`,
+            ]
 
-// export const plugin = new Plugin(PackageJson.name)
-//   .setDefaultConfig<WxjsxyPluginConfig>({
-//     accounts: {},
-//     crons: {},
-//   })
-//   .onInstall(async ({ event, config, atri, bot, saveConfig, logger }) => {
-//     const cron = useCron(atri)
+            const detail = processDetailList[index]
+            if (detail.code !== 200) {
+              strArr.push(`  获取详情失败: ${JSON.stringify(detail)}`)
+              return strArr.join('\n')
+            }
 
-//     await refreshCrons()
+            strArr.push(
+              `  申请时间: ${detail.rows.hisTasks[1].processStartTime}`,
+              ...detail.rows.hisTasks[1].formSchema.formProperties.map(prop => `  ${prop.name}: ${prop.value}`),
+            )
 
-//     event.regCommandEvent({
-//       trigger: 'wxjsxy添加账号',
-//       commander: AddAccountCommander,
-//       callback: async ({ context, options }) => {
-//         if (config.accounts[context.user_id]) {
-//           await bot.sendMsg(context, [Structs.text('账号已存在，无需重复添加')])
-//           return
-//         }
+            return strArr.join('\n')
+          },
+        )
+        .join(''),
+    ),
+  ]
+}
 
-//         const casInfo = await loginToCas({
-//           username: options.username,
-//           password: options.password,
-//         })
-//         if (!('ticket' in casInfo)) {
-//           await bot.sendMsg(context, [Structs.text(`登录失败，请检查账号密码是否正确: \n ${JSON.stringify(casInfo)}`)])
-//           return
-//         }
+export const getProcessListCommand = plugin
+  .command('wxjsxy请假情况')
+  .commander(yargs =>
+    yargs()
+      .option('page', {
+        alias: 'p',
+        type: 'number',
+        description: '页码',
+        default: 1,
+      })
+      .option('size', {
+        alias: 's',
+        type: 'number',
+        description: '每页数量',
+        default: 1,
+      }),
+  )
+  .callback(async ({ context, options, config, bot }) => {
+    const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+    if (!haveAccount) {
+      await bot.sendMsg(context, errorMsg)
+      return
+    }
 
-//         await bot.sendMsg(context, [Structs.text(`登录成功, 返回信息: \n ${JSON.stringify(casInfo)}`)])
+    const msg = await getProcessList(config.accounts[context.user_id.toString()], { pageNo: options.page, pageSize: options.size })
+    await bot.sendMsg(context, msg)
+  })
 
-//         config.accounts[context.user_id] = {
-//           username: options.username,
-//           password: options.password,
-//         }
+export const cronStartProcessCommand = plugin
+  .command('wxjsxy定时请假')
+  .commander(yargs =>
+    yargs()
+      .option('cron', {
+        alias: 'c',
+        type: 'string',
+        description: 'cron表达式',
+      })
+      .option('offset', {
+        alias: 'o',
+        type: 'number',
+        description: '请假日期相对于今天的偏移，默认为0即请假当天',
+      }),
+  )
+  .callback(async ({ context, options, config, bot, saveConfig, logger }) => {
+    const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+    if (!haveAccount) {
+      await bot.sendMsg(context, errorMsg)
+      return
+    }
 
-//         await saveConfig()
-//       },
-//     })
+    if (config.crons[context.user_id.toString()]) {
+      await bot.sendMsg(context, [Structs.text('已存在定时请假任务')])
+      return
+    }
 
-//     event.regCommandEvent({
-//       trigger: 'wxjsxy删除账号',
-//       callback: async ({ context }) => {
-//         const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
-//         if (!haveAccount) {
-//           await bot.sendMsg(context, errorMsg)
-//           return
-//         }
+    let { cron, offset } = options
+    if (!cron) {
+      await bot.sendMsg(context, [Structs.text('请输入cron表达式:'), Structs.text('cron表达式格式必须为6段，示例: 0 30 6 * * * 表示每天6点30分')])
+      const msg = await bot.useMessage(context)
+      if (!msg) {
+        return
+      }
+      cron = msg.raw_message.trim()
+      if (cron.split(' ').length !== 6) {
+        await bot.sendMsg(context, [Structs.text('cron表达式格式错误，请提供6段表达式.')])
+        return
+      }
+    }
 
-//         delete config.accounts[context.user_id]
-//         delete config.crons[context.user_id]
-//         cron.removeCronJob(`wxjsxy_cron_${context.user_id}`)
-//         await saveConfig()
-//         await bot.sendMsg(context, [Structs.text('账号删除成功')])
-//       },
-//     })
+    if (!offset) {
+      await bot.sendMsg(context, [Structs.text('请输入请假日期相对于今天的偏移，默认为0即请假当天:')])
+      const msg = await bot.useMessage(context)
+      if (!msg) {
+        return
+      }
+      offset = Number.parseInt(msg.raw_message.trim())
+      if (Number.isNaN(offset)) {
+        await bot.sendMsg(context, [Structs.text('偏移必须是一个数字')])
+        return
+      }
+    }
 
-//     event.regCommandEvent({
-//       trigger: 'wxjsxy请假',
-//       commander: startProcessCommander,
-//       callback: async ({ context, options }) => {
-//         const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
-//         if (!haveAccount) {
-//           await bot.sendMsg(context, errorMsg)
-//           return
-//         }
+    // 判断是否为好友
+    const isFriend = await bot.isFriend({ user_id: context.user_id })
+    if (!isFriend) {
+      await bot.sendMsg(context, [Structs.text('请先添加好友，才能设置定时请假哦')])
+      return
+    }
 
-//         const msg = await startProcess(config.accounts[context.user_id], options.offset)
-//         await bot.sendMsg(context, msg)
-//       },
-//     })
+    config.crons[context.user_id.toString()] = {
+      cron,
+      offset,
+    }
 
-//     event.regCommandEvent({
-//       trigger: 'wxjsxy请假情况',
-//       commander: getProcessListCommander,
-//       callback: async ({ context, options }) => {
-//         const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
-//         if (!haveAccount) {
-//           await bot.sendMsg(context, errorMsg)
-//           return
-//         }
+    await saveConfig()
+    await syncCrons(config, bot, saveConfig, logger)
+    await bot.sendMsg(context, [Structs.text('定时请假设置成功')])
+  })
 
-//         const msg = await getProcessList(config.accounts[context.user_id], { pageNo: options.page, pageSize: options.size })
-//         await bot.sendMsg(context, msg)
-//       },
-//     })
+export const cronStopProcessCommand = plugin
+  .command('wxjsxy取消定时请假')
+  .callback(async ({ context, config, bot, saveConfig, logger }) => {
+    const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
+    if (!haveAccount) {
+      await bot.sendMsg(context, errorMsg)
+      return
+    }
 
-//     event.regCommandEvent({
-//       trigger: 'wxjsxy定时请假',
-//       commander: setCronProcessCommander,
-//       callback: async ({ context, options }) => {
-//         const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
-//         if (!haveAccount) {
-//           await bot.sendMsg(context, errorMsg)
-//           return
-//         }
+    if (!config.crons[context.user_id.toString()]) {
+      await bot.sendMsg(context, [Structs.text('没有定时请假任务可供取消')])
+      return
+    }
 
-//         if (config.crons[context.user_id]) {
-//           await bot.sendMsg(context, [Structs.text('已存在定时请假任务')])
-//           return
-//         }
-
-//         if (options.cron.split(' ').length !== 6) {
-//           await bot.sendMsg(context, [Structs.text('cron表达式格式错误，请提供6段表达式, 示例: 0 30 6 * * * 表示每天6点30分')])
-//           return
-//         }
-
-//         // 判断是否为好友
-//         const isFriend = await bot.isFriend({ user_id: context.user_id })
-//         if (!isFriend) {
-//           await bot.sendMsg(context, [Structs.text('请先添加好友，才能设置定时请假哦')])
-//           return
-//         }
-
-//         config.crons[context.user_id] = {
-//           cron: options.cron,
-//           offset: options.offset,
-//         }
-
-//         await saveConfig()
-//         await refreshCrons()
-//         await bot.sendMsg(context, [Structs.text('定时请假设置成功')])
-//       },
-//     })
-
-//     event.regCommandEvent({
-//       trigger: 'wxjsxy取消定时请假',
-//       callback: async ({ context }) => {
-//         const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
-//         if (!haveAccount) {
-//           await bot.sendMsg(context, errorMsg)
-//           return
-//         }
-
-//         if (!config.crons[context.user_id]) {
-//           await bot.sendMsg(context, [Structs.text('没有定时请假任务可供取消')])
-//           return
-//         }
-
-//         delete config.crons[context.user_id]
-//         await saveConfig()
-//         await refreshCrons()
-//         await bot.sendMsg(context, [Structs.text('定时请假取消成功')])
-//       },
-//     })
-//   })
+    delete config.crons[context.user_id.toString()]
+    await saveConfig()
+    await syncCrons(config, bot, saveConfig, logger)
+    await bot.sendMsg(context, [Structs.text('定时请假取消成功')])
+  })

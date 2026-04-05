@@ -38,7 +38,7 @@ export async function getDyTokenByCas(req: LoginToCasReq): Promise<string | Text
   return dyTokenRes.token
 }
 
-export async function startProcess(req: LoginToCasReq, offset = 0) {
+export async function startProcess(req: LoginToCasReq, offset: number): Promise<TextSegment[]> {
   const dyTokenRes = await getDyTokenByCas(req)
   if (Array.isArray(dyTokenRes)) {
     return dyTokenRes

@@ -21,13 +21,13 @@
     "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^2.4.8",
+    "@atri-bot/core": "^2.4.9",
     "@atri-bot/lib-db": "^2.3.0",
     "@atri-bot/plugin-help": "^2.4.2",
     "@atri-bot/plugin-proxy": "^2.3.2",
     "@huan_kong/logger": "^2.0.4",
-    "@minato-bot/plugin-gugu": "^2.4.0",
-    "@minato-bot/plugin-wxjsxy": "^2.0.5",
+    "@minato-bot/plugin-gugu": "^2.4.1",
+    "@minato-bot/plugin-wxjsxy": "^2.4.0",
     "env-var": "^7.5.0",
     "node-napcat-ts": "^0.4.24"
   }

@@ -44,8 +44,6 @@ const atri = new ATRI({
 })
 
 ;(async () => {
-  await atri.init()
-
   await initDb({
     connectString: config.DATABASE_URL,
   })
@@ -54,6 +52,8 @@ const atri = new ATRI({
   await atri.installPlugin('@atri-bot/plugin-proxy')
   await atri.installPlugin('@minato-bot/plugin-gugu')
   await atri.installPlugin('@minato-bot/plugin-wxjsxy')
+
+  await atri.init()
 
   const totalTime = (process.hrtime.bigint() - startTime) / BigInt(1e6)
 
