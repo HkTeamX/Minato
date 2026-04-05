@@ -3,6 +3,7 @@ import { ATRI } from '@atri-bot/core'
 import { initDb } from '@atri-bot/lib-db'
 import { Logger, LogLevel } from '@huan_kong/logger'
 import { Structs } from 'node-napcat-ts'
+import PackageJson from '../package.json' with { type: 'json' }
 import { config } from './config.js'
 
 const startTime = process.hrtime.bigint()
@@ -19,6 +20,8 @@ const logger = new Logger({
 logger.INFO('开始加载 Minato')
 
 const atri = new ATRI({
+  name: 'Minato',
+  version: PackageJson.version,
   logLevel: level,
   configDir: config.CONFIG_DIR,
   logDir: config.LOG_DIR,
@@ -41,18 +44,16 @@ const atri = new ATRI({
 })
 
 ;(async () => {
-  await atri.init()
-
-  await initDb(atri, {
+  await initDb({
     connectString: config.DATABASE_URL,
   })
 
-  await Promise.all([
-    atri.installPlugin('@atri-bot/plugin-help'),
-    atri.installPlugin('@atri-bot/plugin-proxy'),
-    atri.installPlugin('@minato-bot/plugin-gugu'),
-    atri.installPlugin('@minato-bot/plugin-wxjsxy'),
-  ])
+  await atri.installPlugin('@atri-bot/plugin-help')
+  await atri.installPlugin('@atri-bot/plugin-proxy')
+  await atri.installPlugin('@minato-bot/plugin-gugu')
+  await atri.installPlugin('@minato-bot/plugin-wxjsxy')
+
+  await atri.init()
 
   const totalTime = (process.hrtime.bigint() - startTime) / BigInt(1e6)
 

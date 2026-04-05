@@ -21,6 +21,7 @@ export async function getDrizzle() {
       },
     })
   }
+
   return _drizzle
 }
 

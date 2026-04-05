@@ -2,8 +2,8 @@ import { defineRelations } from 'drizzle-orm'
 import { bigint, bigserial, boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const timestamps = {
-  created_at: timestamp().notNull().defaultNow(),
-  updated_at: timestamp()
+  created_at: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updated_at: timestamp('updated_at', { withTimezone: true })
     .notNull()
     .defaultNow()
     .$onUpdate(() => new Date()),
