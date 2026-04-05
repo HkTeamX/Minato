@@ -1,11 +1,11 @@
-import type { Bot } from '@atri-bot/core'
+// eslint-disable-next-line unused-imports/no-unused-imports
+import type { Argv, Bot } from '@atri-bot/core'
 import type { TextSegment } from 'node-napcat-ts'
 import { randomInt } from 'node:crypto'
 import { Plugin } from '@atri-bot/core'
 import dayjs from 'dayjs'
 import { and, between, desc, eq } from 'drizzle-orm'
 import { Structs } from 'node-napcat-ts'
-import yargs from 'yargs'
 import PackageJson from '../package.json' with { type: 'json' }
 import { Schema } from './db.js'
 import { addUserPigeonNum, getDrizzle, getUserPigeonInfo } from './dbUtils.js'
@@ -93,7 +93,7 @@ export const guguCommand = plugin
 
 export const queryPigeonCommand = plugin
   .command(/我的鸽子|查鸽子/)
-  .commander(
+  .commander(yargs =>
     yargs()
       .option('user_id', {
         type: 'number',
@@ -140,7 +140,7 @@ export async function handlePigeonRankCommand(bot: Bot, options: { page: number,
 
 export const pigeonRankCommand = plugin
   .command('鸽子排行')
-  .commander(
+  .commander(yargs =>
     yargs()
       .option('page', {
         alias: 'p',

@@ -16,10 +16,10 @@
     "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^2.2.7",
-    "@atri-bot/lib-cron": "^2.1.3",
+    "@atri-bot/core": "^2.4.8",
+    "@atri-bot/lib-cron": "^2.3.0",
+    "@atri-bot/lib-request": "^2.3.1",
     "dayjs": "^1.11.20",
-    "ky": "^1.14.3",
     "node-napcat-ts": "^0.4.24",
     "yargs": "^18.0.0"
   },
