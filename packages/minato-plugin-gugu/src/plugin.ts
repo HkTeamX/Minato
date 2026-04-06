@@ -1,5 +1,4 @@
-// eslint-disable-next-line unused-imports/no-unused-imports
-import type { Argv, Bot } from '@atri-bot/core'
+import type { Bot } from '@atri-bot/core'
 import type { TextSegment } from 'node-napcat-ts'
 import { randomInt } from 'node:crypto'
 import { Plugin } from '@atri-bot/core'

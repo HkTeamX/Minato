@@ -1,5 +1,3 @@
-// eslint-disable-next-line unused-imports/no-unused-imports
-import type { Argv } from '@atri-bot/core'
 import type { getDyProcessReq, LoginToCasReq } from './api.js'
 import { Plugin } from '@atri-bot/core'
 import { removeCronJob } from '@atri-bot/lib-cron'
@@ -24,12 +22,12 @@ export const plugin = new Plugin<WxjsxyPluginConfig>(PackageJson.name)
     {
       key: 'accounts',
       val: {},
-      comment: '账号信息，key为用户id，value为账号信息',
+      comment: '账号信息, key为用户id, value为账号信息',
     },
     {
       key: 'crons',
       val: {},
-      comment: '定时任务信息，key为用户id，value为定时任务信息',
+      comment: '定时任务信息, key为用户id, value为定时任务信息',
     },
   ])
   .onInstall(async ({ config, bot, saveConfig, logger }) => {
@@ -56,7 +54,7 @@ export const addAccountCommand = plugin
   )
   .callback(async ({ context, options, config, bot, saveConfig }) => {
     if (checkHaveAccount(config, context.user_id.toString())[0]) {
-      await bot.sendMsg(context, [Structs.text('账号已存在，无需重复添加')])
+      await bot.sendMsg(context, [Structs.text('账号已存在, 无需重复添加')])
       return
     }
 
@@ -82,7 +80,8 @@ export const addAccountCommand = plugin
 
     const casInfo = await loginToCas({ username, password })
     if (!('ticket' in casInfo)) {
-      await bot.sendMsg(context, [Structs.text(`登录失败，请检查账号密码是否正确: \n ${JSON.stringify(casInfo)}`)])
+      await bot.sendMsg(context, [Structs.text(`登录失败, 请检查账号密码是否正确: \n ${JSON.stringify(casInfo)}`)])
+      return
     }
 
     await bot.sendMsg(context, [Structs.text(`登录成功, 返回信息: \n ${JSON.stringify(casInfo)}`)])
@@ -118,7 +117,7 @@ export const startProcessCommand = plugin
       .option('offset', {
         alias: 'o',
         type: 'number',
-        description: '请假日期相对于今天的偏移，默认为0即请假当天',
+        description: '请假日期相对于今天的偏移, 0表示当天',
       }),
   )
   .callback(async ({ context, options, config, bot }) => {
@@ -129,8 +128,8 @@ export const startProcessCommand = plugin
     }
 
     let { offset } = options
-    if (!offset) {
-      await bot.sendMsg(context, [Structs.text('请输入请假日期相对于今天的偏移，默认为0即请假当天:')])
+    if (offset === undefined) {
+      await bot.sendMsg(context, [Structs.text('请输入请假日期相对于今天的偏移, 0表示当天:')])
 
       const msg = await bot.useMessage(context)
       if (!msg) {
@@ -234,7 +233,7 @@ export const cronStartProcessCommand = plugin
       .option('offset', {
         alias: 'o',
         type: 'number',
-        description: '请假日期相对于今天的偏移，默认为0即请假当天',
+        description: '请假日期相对于今天的偏移, 0表示当天',
       }),
   )
   .callback(async ({ context, options, config, bot, saveConfig, logger }) => {
@@ -251,20 +250,21 @@ export const cronStartProcessCommand = plugin
 
     let { cron, offset } = options
     if (!cron) {
-      await bot.sendMsg(context, [Structs.text('请输入cron表达式:'), Structs.text('cron表达式格式必须为6段，示例: 0 30 6 * * * 表示每天6点30分')])
+      await bot.sendMsg(context, [Structs.text('请输入cron表达式:'), Structs.text('cron表达式格式必须为6段, 示例: 0 30 6 * * * 表示每天6点30分')])
       const msg = await bot.useMessage(context)
       if (!msg) {
         return
       }
       cron = msg.raw_message.trim()
-      if (cron.split(' ').length !== 6) {
-        await bot.sendMsg(context, [Structs.text('cron表达式格式错误，请提供6段表达式.')])
-        return
-      }
     }
 
-    if (!offset) {
-      await bot.sendMsg(context, [Structs.text('请输入请假日期相对于今天的偏移，默认为0即请假当天:')])
+    if (cron.split(' ').length !== 6) {
+      await bot.sendMsg(context, [Structs.text('cron表达式格式错误, 请提供6段表达式.')])
+      return
+    }
+
+    if (offset === undefined) {
+      await bot.sendMsg(context, [Structs.text('请输入请假日期相对于今天的偏移, 0表示当天:')])
       const msg = await bot.useMessage(context)
       if (!msg) {
         return
@@ -279,7 +279,7 @@ export const cronStartProcessCommand = plugin
     // 判断是否为好友
     const isFriend = await bot.isFriend({ user_id: context.user_id })
     if (!isFriend) {
-      await bot.sendMsg(context, [Structs.text('请先添加好友，才能设置定时请假哦')])
+      await bot.sendMsg(context, [Structs.text('请先添加好友, 才能设置定时请假哦')])
       return
     }
 

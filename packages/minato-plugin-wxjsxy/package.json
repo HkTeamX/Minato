@@ -1,7 +1,7 @@
 {
   "name": "@minato-bot/plugin-wxjsxy",
   "type": "module",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "wxjsxy for atri framework",
   "author": "huan_kong",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^2.4.8",
+    "@atri-bot/core": "^2.4.9",
     "@atri-bot/lib-cron": "^2.3.0",
     "@atri-bot/lib-request": "^2.3.1",
     "dayjs": "^1.11.20",

@@ -17,15 +17,15 @@
       "name": "@minato-bot/core",
       "version": "2.0.1",
       "dependencies": {
-        "@atri-bot/core": "^2.4.9",
-        "@atri-bot/lib-db": "^2.3.0",
-        "@atri-bot/plugin-help": "^2.4.2",
-        "@atri-bot/plugin-proxy": "^2.3.2",
-        "@huan_kong/logger": "^2.0.4",
-        "@minato-bot/plugin-gugu": "^2.4.1",
-        "@minato-bot/plugin-wxjsxy": "^2.4.0",
-        "env-var": "^7.5.0",
-        "node-napcat-ts": "^0.4.24",
+        "@atri-bot/core": "latest",
+        "@atri-bot/lib-db": "latest",
+        "@atri-bot/plugin-help": "latest",
+        "@atri-bot/plugin-proxy": "latest",
+        "@huan_kong/logger": "latest",
+        "@minato-bot/plugin-gugu": "latest",
+        "@minato-bot/plugin-wxjsxy": "latest",
+        "env-var": "latest",
+        "node-napcat-ts": "latest",
       },
     },
     "packages/minato-plugin-gugu": {
@@ -44,9 +44,9 @@
     },
     "packages/minato-plugin-wxjsxy": {
       "name": "@minato-bot/plugin-wxjsxy",
-      "version": "2.4.0",
+      "version": "2.4.1",
       "dependencies": {
-        "@atri-bot/core": "^2.4.8",
+        "@atri-bot/core": "^2.4.9",
         "@atri-bot/lib-cron": "^2.3.0",
         "@atri-bot/lib-request": "^2.3.1",
         "dayjs": "^1.11.20",
@@ -67,7 +67,7 @@
 
     "@atri-bot/lib-request": ["@atri-bot/lib-request@2.3.1", "", { "dependencies": { "@huan_kong/logger": "^2.0.4", "ky": "^1.14.3" } }, "sha512-TSAeZ/cCZrWqLEdUglmt+OkncZx7yBxfowh6uKcVY9n5f0UMppPrTCDDsj7SC8dRNTzNfzCfD1+aVRIPyLl1ew=="],
 
-    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@2.4.2", "", { "dependencies": { "@atri-bot/core": "^2.4.4", "node-napcat-ts": "^0.4.24" } }, "sha512-Xg1Y3/Q1BS+BBoL4NRe1xGh2T3r6Bb9ys4uxj1BKKEE94o+gu8AB9pY1PWVIWpvIpVtkpJnQhtF7zHNDYuFSLA=="],
+    "@atri-bot/plugin-help": ["@atri-bot/plugin-help@2.4.3", "", { "dependencies": { "@atri-bot/core": "^2.4.9", "node-napcat-ts": "^0.4.24" } }, "sha512-7h3JoR67MgLJuoULZmg5qeOJ9Barx5J+kYwtTs8mtJbQP93Gl0VKVYptlB9ZioryuhG6KAoGPjhP+Ha9eF89uQ=="],
 
     "@atri-bot/plugin-proxy": ["@atri-bot/plugin-proxy@2.3.2", "", { "dependencies": { "@atri-bot/core": "^2.3.7", "@huan_kong/node-global-proxy": "^1.0.2" } }, "sha512-6LgsxjOgFt4IsBIWr2vxLE49t0pXrN+3OMlSZPBZcbUicqLaOIyTcAeaJdtzwlOSqI1eygK4CTpLI8rMitJcZA=="],
 
@@ -1100,6 +1100,10 @@
     "@eslint-community/eslint-utils/eslint-visitor-keys": ["eslint-visitor-keys@3.4.3", "", {}, "sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag=="],
 
     "@eslint/markdown/@eslint/plugin-kit": ["@eslint/plugin-kit@0.6.1", "", { "dependencies": { "@eslint/core": "^1.1.1", "levn": "^0.4.1" } }, "sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ=="],
+
+    "@minato-bot/core/@minato-bot/plugin-gugu": ["@minato-bot/plugin-gugu@2.4.1", "", { "dependencies": { "@atri-bot/core": "^2.4.8", "@atri-bot/lib-db": "^2.3.0", "dayjs": "^1.11.20", "drizzle-orm": "^1.0.0-beta.20", "node-napcat-ts": "^0.4.24" } }, "sha512-LP5wQJ0xf639quwJObEHZS7dH9ve2dhgZiUdxJZYF8ocgQp8jxXSYA4b1deJChIlF9Wetahu17YLfxr4bRIWjg=="],
+
+    "@minato-bot/core/@minato-bot/plugin-wxjsxy": ["@minato-bot/plugin-wxjsxy@2.4.1", "", { "dependencies": { "@atri-bot/core": "^2.4.9", "@atri-bot/lib-cron": "^2.3.0", "@atri-bot/lib-request": "^2.3.1", "dayjs": "^1.11.20", "node-napcat-ts": "^0.4.24" } }, "sha512-LLHj/QSRVQUnlhvZBupjcL115a+hBSyYQSwGbLWexOAII4gE2rRaA06Me+sXdXcn6xdqUeAbE4xZX4xLp3G6Dg=="],
 
     "@quansync/fs/quansync": ["quansync@1.0.0", "", {}, "sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA=="],
 
