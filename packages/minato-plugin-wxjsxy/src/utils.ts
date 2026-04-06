@@ -80,6 +80,7 @@ export async function syncCrons(config: WxjsxyPluginConfig, bot: Bot, saveConfig
           logger.WARN(`用户 ${user_id} 的账号信息有误，无法执行定时请假任务，已自动删除定时任务`)
           delete config.crons[user_id]
           await saveConfig()
+          return
         }
 
         const msg = await startProcess(config.accounts[user_id], cronInfo.offset)
