@@ -1,8 +1,8 @@
 {
-  "name": "@minato-bot/plugin-wxjsxy",
+  "name": "@minato-bot/plugin-image-searcher",
   "type": "module",
-  "version": "2.4.7",
-  "description": "wxjsxy for atri framework",
+  "version": "2.0.0",
+  "description": "image search plugin for atri framework",
   "author": "huan_kong",
   "license": "MIT",
   "main": "./dist/index.mjs",
@@ -16,10 +16,11 @@
     "typecheck": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
-    "@atri-bot/core": "^2.4.9",
-    "@atri-bot/lib-cron": "^2.3.0",
+    "@atri-bot/core": "^2.4.10",
     "@atri-bot/lib-request": "^2.3.1",
-    "dayjs": "^1.11.20",
-    "node-napcat-ts": "^0.4.24"
+    "@minato-bot/plugin-gugu": "^2.4.2",
+    "image_searcher": "^1.0.2",
+    "jimp": "^1.6.1",
+    "node-napcat-ts": "^0.4.25"
   }
 }

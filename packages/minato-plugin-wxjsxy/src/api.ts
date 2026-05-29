@@ -8,6 +8,14 @@ const exponentHex = '010001'
 const modulusHex = '00b5eeb166e069920e80bebd1fea4829d3d1f3216f2aabe79b6c47a3c18dcee5fd22c2e7ac519cab59198ece036dcf289ea8201e2a0b9ded307f8fb704136eaeb670286f5ad44e691005ba9ea5af04ada5367cd724b5a26fdb5120cc95b6431604bd219c6b7d83a6f8f24b43918ea988a76f93c333aa5a20991493d4eb1117e7b1'
 const key = new RSAKeyPair(exponentHex, '', modulusHex)
 
+let casUrl = 'https://1252343003-bmxobd4t96.ap-shanghai.tencentscf.com'
+let dyUrl = 'https://1252343003-ku2o9smhxs.ap-shanghai.tencentscf.com'
+
+export function changeCasAndDyUrl(cas: string, dy: string) {
+  casUrl = cas
+  dyUrl = dy
+}
+
 export const casReq = useRequest({
   throwHttpErrors: false,
   headers: {
@@ -43,7 +51,7 @@ export type LoginToCasRes
 
 export async function loginToCas(req: LoginToCasReq): Promise<LoginToCasRes> {
   const { username, password } = req
-  return await casReq.post('https://cas.wxjsxy.com.cn/lyuapServer/v1/tickets', {
+  return await casReq.post(`${casUrl}/lyuapServer/v1/tickets`, {
     body: new URLSearchParams({
       username,
       password: encryptedString(key, password),
@@ -57,9 +65,9 @@ export async function loginToCas(req: LoginToCasReq): Promise<LoginToCasRes> {
 }
 
 export async function getCasLoginToken(TGT: string): Promise<[boolean, string]> {
-  const res = await casReq.post(`https://cas.wxjsxy.com.cn/lyuapServer/v1/tickets/${TGT}`, {
+  const res = await casReq.post(`${casUrl}/lyuapServer/v1/tickets/${TGT}`, {
     body: new URLSearchParams({
-      service: 'https://dy.wxjsxy.com.cn/prdapi/wxjsxyapp/cas/index',
+      service: `https://dy.wxjsxy.com.cn/prdapi/wxjsxyapp/cas/index`,
       loginToken: 'loginToken',
     }),
   }).text()
@@ -68,7 +76,7 @@ export async function getCasLoginToken(TGT: string): Promise<[boolean, string]> 
 }
 
 export async function getDyCookie(CasToken: string): Promise<string | null> {
-  const result = await casReq.get(`https://dy.wxjsxy.com.cn/prdapi/wxjsxyapp/cas/index?ticket=${CasToken}`, {
+  const result = await casReq.get(`${dyUrl}/prdapi/wxjsxyapp/cas/index?ticket=${CasToken}`, {
     redirect: 'manual',
   })
   const setCookie = result.headers.getSetCookie()
@@ -95,7 +103,7 @@ export type GetDyTokenRes
     }
 
 export async function getDyToken(cookie: string): Promise<GetDyTokenRes> {
-  return await dyReq.get('https://dy.wxjsxy.com.cn/prdapi/wxjsxyapp/cas/indexData', {
+  return await dyReq.get(`${dyUrl}/prdapi/wxjsxyapp/cas/indexData`, {
     headers: {
       cookie,
     },
@@ -121,7 +129,7 @@ export async function setDyProcess(token: string, req: SetDyProcessReq): Promise
     processDefinitionKey: 'studentApply',
   }
   const sign = crypto.createHash('md5').update(`myappsecret${JSON.stringify(data)}myappsecret`).digest('hex')
-  return await dyReq.post(`https://dy.wxjsxy.com.cn/prdapi/activiti/processInstance/startProcess?user_info_query_json=${encodeURIComponent(JSON.stringify(data))}&sign=${sign}`, {
+  return await dyReq.post(`${dyUrl}/prdapi/activiti/processInstance/startProcess?user_info_query_json=${encodeURIComponent(JSON.stringify(data))}&sign=${sign}`, {
     json: data,
     headers: {
       token,
@@ -188,7 +196,7 @@ export type DyProcessRes
 
 export async function getDyProcessList(token: string, data: getDyProcessReq = { pageNo: 1, pageSize: 1 }): Promise<DyProcessRes> {
   const sign = crypto.createHash('md5').update(`myappsecret${JSON.stringify(data)}myappsecret`).digest('hex')
-  return await dyReq.post(`https://dy.wxjsxy.com.cn/prdapi/activiti/task/myapply?user_info_query_json=${encodeURIComponent(JSON.stringify(data))}&sign=${sign}`, {
+  return await dyReq.post(`${dyUrl}/prdapi/activiti/task/myapply?user_info_query_json=${encodeURIComponent(JSON.stringify(data))}&sign=${sign}`, {
     json: data,
     headers: {
       token,
@@ -224,7 +232,7 @@ export type DyProcessDetailRes
 export async function getDyProcessDetail(token: string, instanceId: string): Promise<DyProcessDetailRes> {
   const data = { instanceId }
   const sign = crypto.createHash('md5').update(`myappsecret${JSON.stringify(data)}myappsecret`).digest('hex')
-  return await dyReq.post(`https://dy.wxjsxy.com.cn/prdapi/activiti/task/done/info/byInstanceId?user_info_query_json=${encodeURIComponent(JSON.stringify(data))}&sign=${sign}`, {
+  return await dyReq.post(`${dyUrl}/prdapi/activiti/task/done/info/byInstanceId?user_info_query_json=${encodeURIComponent(JSON.stringify(data))}&sign=${sign}`, {
     json: data,
     headers: {
       token,

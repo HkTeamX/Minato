@@ -99,7 +99,9 @@ export const queryPigeonCommand = plugin
         description: '要查询的用户ID，默认为自己',
       }),
   )
-  .callback(async ({ context, options, bot }) => {
+  .callback(async ({ context, options, bot }, next) => {
+    next()
+
     const result = await getUserPigeonInfo(options.user_id ?? context.user_id)
     const username = await bot.getUsername({ user_id: result.user_id })
     await bot.sendMsg(context, [Structs.text(`用户 ${username} 共有 ${result.pigeon_num} 只鸽子!`)])
@@ -154,7 +156,9 @@ export const pigeonRankCommand = plugin
         default: 10,
       }),
   )
-  .callback(async ({ context, options, bot }) => {
+  .callback(async ({ context, options, bot }, next) => {
+    next()
+
     const msg = await handlePigeonRankCommand(bot, options)
     await bot.sendMsg(context, msg)
   })
