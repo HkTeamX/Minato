@@ -44,7 +44,7 @@ export async function startProcess(req: LoginToCasReq, offset: number): Promise<
     return dyTokenRes
   }
 
-  const dyAction = await setDyProcess(
+  let dyAction = await setDyProcess(
     dyTokenRes,
     {
       beginTime: dayjs().add(offset, 'day').hour(6).minute(30).format('YYYY-MM-DD HH:mm'),
@@ -56,7 +56,21 @@ export async function startProcess(req: LoginToCasReq, offset: number): Promise<
     },
   )
   if (dyAction.code !== 200) {
-    return [Structs.text(`请假失败, 提交请假申请失败: ${JSON.stringify(dyAction)}`)]
+    // 如果当天20点的打不了,那就试试16点
+    dyAction = await setDyProcess(
+      dyTokenRes,
+      {
+        beginTime: dayjs().add(offset, 'day').hour(6).minute(30).format('YYYY-MM-DD HH:mm'),
+        endTime: dayjs().add(offset, 'day').hour(16).minute(0).format('YYYY-MM-DD HH:mm'),
+        leaveSchool: '是',
+        backDormitory: '是',
+        askedType: '事假',
+        reason: '集训',
+      },
+    )
+    if (dyAction.code !== 200) {
+      return [Structs.text(`请假失败, 提交请假申请失败: ${JSON.stringify(dyAction)}`)]
+    }
   }
 
   return [Structs.text(`请假成功, 返回信息: \n ${JSON.stringify(dyAction)}`)]

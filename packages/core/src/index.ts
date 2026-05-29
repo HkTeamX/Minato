@@ -52,6 +52,7 @@ const atri = new ATRI({
   await atri.installPlugin('@atri-bot/plugin-proxy')
   await atri.installPlugin('@minato-bot/plugin-gugu')
   await atri.installPlugin('@minato-bot/plugin-wxjsxy')
+  await atri.installPlugin('@minato-bot/plugin-image-searcher')
 
   await atri.init()
 

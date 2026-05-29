@@ -15,6 +15,8 @@ export interface WxjsxyPluginConfig {
     cron: string
     offset: number
   }>
+  casUrl: string
+  dyUrl: string
 }
 
 export const plugin = new Plugin<WxjsxyPluginConfig>(PackageJson.name)
@@ -28,6 +30,16 @@ export const plugin = new Plugin<WxjsxyPluginConfig>(PackageJson.name)
       key: 'crons',
       val: {},
       comment: '定时任务信息, key为用户id, value为定时任务信息',
+    },
+    {
+      key: 'casUrl',
+      val: 'https://1252343003-bmxobd4t96.ap-shanghai.tencentscf.com',
+      comment: 'CAS服务器URL, 默认为上海环境URL',
+    },
+    {
+      key: 'dyUrl',
+      val: 'https://1252343003-ku2o9smhxs.ap-shanghai.tencentscf.com',
+      comment: 'DY服务器URL, 默认为上海环境URL',
     },
   ])
   .onInstall(async ({ config, bot, saveConfig, logger }) => {
@@ -52,7 +64,9 @@ export const addAccountCommand = plugin
         description: '密码',
       }),
   )
-  .callback(async ({ context, options, config, bot, saveConfig }) => {
+  .callback(async ({ context, options, config, bot, saveConfig }, next) => {
+    next()
+
     if (checkHaveAccount(config, context.user_id.toString())[0]) {
       await bot.sendMsg(context, [Structs.text('账号已存在, 无需重复添加')])
       return
@@ -96,7 +110,9 @@ export const addAccountCommand = plugin
 
 export const deleteAccountCommand = plugin
   .command('wxjsxy删除账号')
-  .callback(async ({ context, config, bot, saveConfig }) => {
+  .callback(async ({ context, config, bot, saveConfig }, next) => {
+    next()
+
     const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
     if (!haveAccount) {
       await bot.sendMsg(context, errorMsg)
@@ -120,7 +136,9 @@ export const startProcessCommand = plugin
         description: '请假日期相对于今天的偏移, 0表示当天',
       }),
   )
-  .callback(async ({ context, options, config, bot }) => {
+  .callback(async ({ context, options, config, bot }, next) => {
+    next()
+
     const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
     if (!haveAccount) {
       await bot.sendMsg(context, errorMsg)
@@ -210,7 +228,9 @@ export const getProcessListCommand = plugin
         default: 1,
       }),
   )
-  .callback(async ({ context, options, config, bot }) => {
+  .callback(async ({ context, options, config, bot }, next) => {
+    next()
+
     const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
     if (!haveAccount) {
       await bot.sendMsg(context, errorMsg)
@@ -236,7 +256,9 @@ export const cronStartProcessCommand = plugin
         description: '请假日期相对于今天的偏移, 0表示当天',
       }),
   )
-  .callback(async ({ context, options, config, bot, saveConfig, logger }) => {
+  .callback(async ({ context, options, config, bot, saveConfig, logger }, next) => {
+    next()
+
     const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
     if (!haveAccount) {
       await bot.sendMsg(context, errorMsg)
@@ -295,7 +317,9 @@ export const cronStartProcessCommand = plugin
 
 export const cronStopProcessCommand = plugin
   .command('wxjsxy取消定时请假')
-  .callback(async ({ context, config, bot, saveConfig, logger }) => {
+  .callback(async ({ context, config, bot, saveConfig, logger }, next) => {
+    next()
+
     const [haveAccount, errorMsg] = checkHaveAccount(config, context.user_id.toString())
     if (!haveAccount) {
       await bot.sendMsg(context, errorMsg)
