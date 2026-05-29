@@ -23,6 +23,7 @@
         "@atri-bot/plugin-proxy": "^2.3.2",
         "@huan_kong/logger": "^2.0.4",
         "@minato-bot/plugin-gugu": "^2.4.2",
+        "@minato-bot/plugin-image-searcher": "^2.0.0",
         "@minato-bot/plugin-wxjsxy": "^2.4.7",
         "env-var": "^7.5.0",
         "node-napcat-ts": "^0.4.25",
@@ -44,7 +45,7 @@
     },
     "packages/minato-plugin-image-searcher": {
       "name": "@minato-bot/plugin-image-searcher",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@atri-bot/core": "^2.4.10",
         "@atri-bot/lib-request": "^2.3.1",
@@ -1312,6 +1313,8 @@
     "@eslint/markdown/@eslint/plugin-kit": ["@eslint/plugin-kit@0.6.1", "", { "dependencies": { "@eslint/core": "^1.1.1", "levn": "^0.4.1" } }, "sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ=="],
 
     "@jimp/core/file-type": ["file-type@21.3.4", "", { "dependencies": { "@tokenizer/inflate": "^0.4.1", "strtok3": "^10.3.4", "token-types": "^6.1.1", "uint8array-extras": "^1.4.0" } }, "sha512-Ievi/yy8DS3ygGvT47PjSfdFoX+2isQueoYP1cntFW1JLYAuS4GD7NUPGg4zv2iZfV52uDyk5w5Z0TdpRS6Q1g=="],
+
+    "@minato-bot/core/@minato-bot/plugin-image-searcher": ["@minato-bot/plugin-image-searcher@2.0.0", "", { "dependencies": { "@atri-bot/core": "^2.4.10", "@atri-bot/lib-request": "^2.3.1", "@minato-bot/plugin-gugu": "^2.4.2", "image_searcher": "^1.0.2", "jimp": "^1.6.1", "node-napcat-ts": "^0.4.25" } }, "sha512-QmfjufV7MCFVznrvj3CyeWp/Mx6W4CuO3ppPWG6A2+sxLu+ZM/vhzcMJ5DLxtas5m5tcXNLb9ynBYZfLKxlLRQ=="],
 
     "@quansync/fs/quansync": ["quansync@1.0.0", "", {}, "sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA=="],
 
