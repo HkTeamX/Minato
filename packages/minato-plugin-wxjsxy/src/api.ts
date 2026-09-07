@@ -25,6 +25,7 @@ export const casReq = useRequest({
     'Content-Type': 'application/x-www-form-urlencoded',
     'sec-ch-ua-platform': '"Windows"',
   },
+  timeout: 60 * 1000,
 })
 
 export const dyReq = useRequest({
@@ -36,6 +37,7 @@ export const dyReq = useRequest({
     'mode': 'wxa',
     'Content-Type': 'application/json',
   },
+  timeout: 60 * 1000,
 })
 
 export interface LoginToCasReq {

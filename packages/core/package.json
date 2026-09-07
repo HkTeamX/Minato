@@ -1,7 +1,7 @@
 {
   "name": "@minato-bot/core",
   "type": "module",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "qqbot powered by atri framework",
   "author": "huankong233",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "@huan_kong/logger": "^2.0.4",
     "@minato-bot/plugin-gugu": "^2.4.2",
     "@minato-bot/plugin-image-searcher": "^2.0.0",
-    "@minato-bot/plugin-wxjsxy": "^2.4.7",
+    "@minato-bot/plugin-wxjsxy": "^2.4.8",
     "env-var": "^7.5.0",
     "node-napcat-ts": "^0.4.25"
   }

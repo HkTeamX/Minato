@@ -97,8 +97,16 @@ export async function syncCrons(config: WxjsxyPluginConfig, bot: Bot, saveConfig
           return
         }
 
-        const msg = await startProcess(config.accounts[user_id], cronInfo.offset)
-        await bot.sendMsg({ message_type: 'private', user_id: Number.parseFloat(user_id) }, msg)
+        try {
+          const msg = await startProcess(config.accounts[user_id], cronInfo.offset)
+          await bot.sendMsg({ message_type: 'private', user_id: Number.parseFloat(user_id) }, msg)
+        }
+        catch (error) {
+          await bot.sendMsg(
+            { message_type: 'private', user_id: Number.parseFloat(user_id) },
+            [Structs.text(`定时请假任务执行失败: ${String(error) ?? '未知错误'}`)],
+          )
+        }
       },
     })
   }
