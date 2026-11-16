@@ -47,7 +47,7 @@ export async function startProcess(req: LoginToCasReq, offset: number): Promise<
   let dyAction = await setDyProcess(
     dyTokenRes,
     {
-      beginTime: dayjs().add(offset, 'day').hour(6).minute(30).format('YYYY-MM-DD HH:mm'),
+      beginTime: dayjs().add(offset, 'day').hour(8).minute(10).format('YYYY-MM-DD HH:mm'),
       endTime: dayjs().add(offset, 'day').hour(20).minute(50).format('YYYY-MM-DD HH:mm'),
       leaveSchool: '是',
       backDormitory: '是',
@@ -60,7 +60,7 @@ export async function startProcess(req: LoginToCasReq, offset: number): Promise<
     dyAction = await setDyProcess(
       dyTokenRes,
       {
-        beginTime: dayjs().add(offset, 'day').hour(6).minute(30).format('YYYY-MM-DD HH:mm'),
+        beginTime: dayjs().add(offset, 'day').hour(8).minute(10).format('YYYY-MM-DD HH:mm'),
         endTime: dayjs().add(offset, 'day').hour(16).minute(0).format('YYYY-MM-DD HH:mm'),
         leaveSchool: '是',
         backDormitory: '是',
